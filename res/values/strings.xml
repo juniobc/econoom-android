@@ -4,5 +4,12 @@
 	<string name="btn_cad_prod">Cadastro de Produto</string>
 	<string name="btn_lista_prod">Listar produtos</string>
 	<string name="nm_prod">Nome do produto</string>
+	<string-array name="tp_cad">
+	    
+	    <item>Produto</item>
+	    <item>Conta</item>
+	    <item>Serviço</item>
+	    
+	</string-array>
 
 </resources>
