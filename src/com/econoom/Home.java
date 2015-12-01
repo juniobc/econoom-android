@@ -21,7 +21,7 @@ public class Home extends Activity {
     String [] MenuTitles = new String[]{"First Item","Second Item","Third Item","Fourth Item"};
 	
 	@Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.home);
@@ -88,5 +88,12 @@ public class Home extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+	
+	public void cadastraProduto(View v){
+		//Log.d(TAG,"cadastraProduto");
+		Intent i = new Intent(Home.this, CadastroProduto.class);
+		startActivity(i);
+		
+	}
 
 }
