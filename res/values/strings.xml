@@ -2,5 +2,7 @@
 
     <string name="app_name">econoom-android</string>
 	<string name="btn_cad_prod">Cadastro de Produto</string>
+	<string name="btn_lista_prod">Listar produtos</string>
+	<string name="nm_prod">Nome do produto</string>
 
 </resources>
