@@ -1,23 +1,77 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-	android:gravity="center">
-	
-    <Spinner 
-        android:id="@+id/tp_cad"
-        android:layout_width="wrap_content"
-		android:layout_height="wrap_content"/>
-	
-	<EditText
-		android:id="@+id/nm_prod"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:hint="@string/nm_prod"/>
-	
-	<Spinner 
-        android:id="@+id/un_med_prod"
-        android:layout_width="wrap_content"
-		android:layout_height="wrap_content"/>
-    
-</LinearLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+		android:gravity="center">
+		
+	    <Spinner 
+	        android:id="@+id/tp_cad_prod"
+	        android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+		
+		<EditText
+			android:id="@+id/nm_cad"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:hint="@string/nm_cad"/>
+		
+		<Spinner 
+	        android:id="@+id/un_med_prod"
+	        android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+		
+		<EditText
+			android:id="@+id/qt_un_prod"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:hint="@string/qt_un_prod"/>
+		
+		<EditText
+			android:id="@+id/qt_prod"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:hint="@string/qt_prod"/>
+		
+		<EditText
+			android:id="@+id/vl_prod"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:hint="@string/vl_prod"/>
+		
+		<EditText
+			android:id="@+id/cd_barra_prod"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:hint="@string/cd_barra_prod"/>
+		
+		<EditText
+			android:id="@+id/end_prod"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:hint="@string/end_prod"/>
+		
+		<EditText
+			android:id="@+id/dt_validade"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:hint="@string/dt_validade"/>
+		
+		<Spinner 
+	        android:id="@+id/tp_pag_prod"
+	        android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+		
+		<Button
+		    android:id="@+id/btn_cad_prod"
+		    android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/btn_cad"
+			android:onClick="cadastrar"/>
+	    
+	</LinearLayout>
+
+</ScrollView>

@@ -1,10 +1,11 @@
 <resources>
 
     <string name="app_name">econoom-android</string>
-	<string name="btn_cad_prod">Cadastro de Produto</string>
-	<string name="btn_lista_prod">Listar produtos</string>
-	<string name="nm_prod">Nome do produto</string>
-	<string-array name="tp_cad">
+	<string name="btn_cad_prod_tela">Cadastro</string>
+	<string name="btn_cad">Cadastrar</string>
+	<string name="btn_listar">Listar</string>
+	<string name="nm_cad">Nome</string>
+	<string-array name="tp_cad_prod">
 	    
 	    <item>Produto</item>
 	    <item>Conta</item>
@@ -20,5 +21,17 @@
 		<item>Un</item>
 
 	</string-array>
+	<string name="qt_un_prod">Quantidade da Unidade</string>
+	<string name="qt_prod">Quantidade Total</string>
+	<string name="vl_prod">Valor Total</string>
+	<string name="cd_barra_prod">Codigo de Barras</string>	
+	<string name="end_prod">Endereço</string>
+	<string name="dt_validade">Data de validade</string>
+	<string-array name="tp_pag_prod">
+	    <item>Debito</item>
+	    <item>Credito</item>
+	    <item>Cadastro</item>
+	</string-array>
+	
 
 </resources>
