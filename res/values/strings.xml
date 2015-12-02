@@ -11,5 +11,14 @@
 	    <item>Serviço</item>
 	    
 	</string-array>
+	
+	<string-array name="un_med_prod">
+
+	    <item>Ml</item>
+	    <item>L</item>
+	    <item>G</item>
+		<item>Un</item>
+
+	</string-array>
 
 </resources>
