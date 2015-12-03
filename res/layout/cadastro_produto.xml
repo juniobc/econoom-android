@@ -10,64 +10,85 @@
 		
 	    <Spinner 
 	        android:id="@+id/tp_cad_prod"
-	        android:layout_width="wrap_content"
+	        android:layout_width="match_parent"
 			android:layout_height="wrap_content"/>
+	    
+	    <TextView 
+	        android:hint="@string/nm_cad"
+	        android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="start"/>
 		
 		<EditText
 			android:id="@+id/nm_cad"
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:hint="@string/nm_cad"/>
+			android:gravity="end"
+			android:text="teste"
+			android:textSize="22.0sp">
+		    
+		    
+		</EditText>
 		
 		<Spinner 
 	        android:id="@+id/un_med_prod"
-	        android:layout_width="wrap_content"
+	        android:layout_width="match_parent"
 			android:layout_height="wrap_content"/>
 		
 		<EditText
 			android:id="@+id/qt_un_prod"
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:gravity="end"
+			android:inputType="numberDecimal"
 			android:hint="@string/qt_un_prod"/>
 		
 		<EditText
 			android:id="@+id/qt_prod"
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:gravity="end"
+			android:inputType="number"
 			android:hint="@string/qt_prod"/>
 		
 		<EditText
 			android:id="@+id/vl_prod"
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:gravity="end"
 			android:hint="@string/vl_prod"/>
 		
 		<EditText
 			android:id="@+id/cd_barra_prod"
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:gravity="end"
+			android:inputType="number"
 			android:hint="@string/cd_barra_prod"/>
 		
 		<EditText
 			android:id="@+id/end_prod"
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:gravity="end"
 			android:hint="@string/end_prod"/>
 		
 		<EditText
 			android:id="@+id/dt_validade"
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:gravity="end"
+			android:inputType="number"
 			android:hint="@string/dt_validade"/>
 		
 		<Spinner 
 	        android:id="@+id/tp_pag_prod"
-	        android:layout_width="wrap_content"
+	        android:layout_width="match_parent"
 			android:layout_height="wrap_content"/>
 		
 		<Button
 		    android:id="@+id/btn_cad_prod"
-		    android:layout_width="wrap_content"
+		    android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:text="@string/btn_cad"
 			android:onClick="cadastrar"/>

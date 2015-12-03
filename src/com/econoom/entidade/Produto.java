@@ -3,12 +3,12 @@ package com.econoom.entidade;
 public class Produto extends NotaValor {
 	
 	private String tpUnidadeMedida;
-	private long codigoBarras;
+	private double codigoBarras;
 	private float qtUnMedida;
 	private int quantidade;
 
 	public Produto(String nome, float valor, double latitude, double longitude, String dataValidade, int tpPagamento,
-	String tpUnidadeMedida, long codigoBarras, float qtUnMedida, int quantidade) {
+	String tpUnidadeMedida, double codigoBarras, float qtUnMedida, int quantidade) {
 		
 		super(nome, valor, latitude, longitude, dataValidade,tpPagamento);
 		
@@ -27,7 +27,7 @@ public class Produto extends NotaValor {
 		this.tpUnidadeMedida = tpUnidadeMedida;
 	}
 
-	public long getCodigoBarras() {
+	public double getCodigoBarras() {
 		return codigoBarras;
 	}
 

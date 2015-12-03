@@ -1,5 +1,7 @@
 package com.econoom;
 
+import java.text.NumberFormat;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.AdapterView;
@@ -7,6 +9,10 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 
@@ -97,25 +103,108 @@ public class CadastroProduto extends Activity
 			
 		});
 		
+		vl_prod.setInputType(InputType.TYPE_CLASS_NUMBER);
+		vl_prod.addTextChangedListener(new TextWatcher() {
+ 
+            private boolean isUpdating = false;
+                        // Pega a formatacao do sistema, se for brasil R$ se EUA US$
+            private NumberFormat nf = NumberFormat.getCurrencyInstance();
+ 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                    int after) {
+                // Evita que o método seja executado varias vezes.
+                                // Se tirar ele entre em loop
+                if (isUpdating) {
+                    isUpdating = false;
+                    return;
+                }
+ 
+                isUpdating = true;
+                String str = s.toString();
+                // Verifica se já existe a máscara no texto.
+                boolean hasMask = ((str.indexOf(".") > -1 || str.indexOf(",") > -1));
+                                // Verificamos se existe máscara
+                if (hasMask) {
+                    // Retiramos a máscara.
+                    str = str.replaceAll("[,]", "").replaceAll("[.]", "");
+                }
+ 
+                try {
+                    // Transformamos o número que está escrito no EditText em
+                    // monetário.
+                    str = nf.format(Double.parseDouble(str) / 100);
+                    str = str.replace("R$","");
+                    vl_prod.setText(str);
+                    vl_prod.setSelection(vl_prod.getText().length());
+                } catch (NumberFormatException e) {
+                    s = "";
+                }
+            }
+ 
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                    int after) {
+                // Não utilizamos
+            }
+ 
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Não utilizamos
+            }
+        });
+		
 	}
 	
 	public void cadastrar(View v){
 		
 		Log.d(TAG,"cadastrar");
 		
-		String nome = nm_cad.getText().toString();
-		float valor = Float.parseFloat((vl_prod.getText().toString().replace(",",".")));
-		double latitude = 16.55555554487;
-		double longitude = 16.55555554487;
-		String dataValidade = "20150101";
-		int tpPagamento = tp_pag_prod.getSelectedItemPosition();
-		String tpUnidadeMedida = tp_pag_prod.getSelectedItem().toString();
-		long codigoBarras = Long.parseLong(cd_barra_prod.getText().toString());
-		float qtUnMedida = Float.parseFloat((qt_un_prod.getText().toString().replace(",",".")));
-		int quantidade = Integer.parseInt(qt_prod.getText().toString());
+		String nome;
+		float valor;
+		double latitude;
+		double longitude;
+		String dataValidade;
+		int tpPagamento;
+		String tpUnidadeMedida;
+		double codigoBarras;
+		float qtUnMedida;
+		int quantidade;
+		
+		nome = nm_cad.getText().toString();
+		if(vl_prod.getText().toString().equals(""))
+			valor = 0;
+		else
+			valor = Float.parseFloat((vl_prod.getText().toString().replace(",",".")));
+		latitude = 16.55555554487;
+		longitude = 16.55555554487;
+		dataValidade = "20150101";
+		tpPagamento = tp_pag_prod.getSelectedItemPosition();
+		tpUnidadeMedida = tp_pag_prod.getSelectedItem().toString();
+		if(cd_barra_prod.getText().toString().equals(""))
+			codigoBarras = 0;
+		else
+			codigoBarras = Double.parseDouble(cd_barra_prod.getText().toString());
+		if(qt_un_prod.getText().toString().equals(""))
+			qtUnMedida = 0;
+		else
+			qtUnMedida = Float.parseFloat((qt_un_prod.getText().toString().replace("R$","").replace(",",".")));
+		if(qt_prod.getText().toString().equals(""))
+			quantidade = 0;
+		else
+			quantidade = Integer.parseInt(qt_prod.getText().toString());
 		
 		produto = new Produto(nome,valor,latitude,longitude,dataValidade,tpPagamento,
 		tpUnidadeMedida,codigoBarras,qtUnMedida,quantidade);
+		
+		Toast.makeText(this, produto.getNome(), Toast.LENGTH_LONG).show();
+		Toast.makeText(this, Float.toString(produto.getValor()), Toast.LENGTH_LONG).show();
+		Toast.makeText(this, Integer.toString(produto.getTpPagamento()), Toast.LENGTH_LONG).show();
+		Toast.makeText(this, produto.getTpUnidadeMedida(), Toast.LENGTH_LONG).show();
+		Toast.makeText(this, Double.toString(produto.getCodigoBarras()), Toast.LENGTH_LONG).show();
+		Toast.makeText(this, Float.toString(produto.getQtUnMedida()), Toast.LENGTH_LONG).show();
+		Toast.makeText(this, Integer.toString(produto.getQuantidade()), Toast.LENGTH_LONG).show();
+		
 		
 	}
 	
