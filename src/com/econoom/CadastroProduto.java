@@ -108,9 +108,14 @@ public class CadastroProduto extends Activity
 		double latitude = 16.55555554487;
 		double longitude = 16.55555554487;
 		String dataValidade = "20150101";
-		//int tpPagamento = Int.parseInt(tp_pag_prod.getSelectedItem().toString());;
+		int tpPagamento = tp_pag_prod.getSelectedItemPosition();
+		String tpUnidadeMedida = tp_pag_prod.getSelectedItem().toString();
+		long codigoBarras = Long.parseLong(cd_barra_prod.getText().toString());
+		float qtUnMedida = Float.parseFloat((qt_un_prod.getText().toString().replace(",",".")));
+		int quantidade = Integer.parseInt(qt_prod.getText().toString());
 		
-		//produto = new Produto();
+		produto = new Produto(nome,valor,latitude,longitude,dataValidade,tpPagamento,
+		tpUnidadeMedida,codigoBarras,qtUnMedida,quantidade);
 		
 	}
 	
