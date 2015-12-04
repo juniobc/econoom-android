@@ -4,7 +4,7 @@
 	<string name="btn_cad_prod_tela">Cadastro</string>
 	<string name="btn_cad">Cadastrar</string>
 	<string name="btn_listar">Listar</string>
-	<string name="nm_cad"><font size="15">Nome</font></string>
+	<string name="nm_cad">Nome</string>
 	<string-array name="tp_cad_prod">
 	    
 	    <item>Produto</item>

@@ -107,14 +107,12 @@ public class CadastroProduto extends Activity
 		vl_prod.addTextChangedListener(new TextWatcher() {
  
             private boolean isUpdating = false;
-                        // Pega a formatacao do sistema, se for brasil R$ se EUA US$
+
             private NumberFormat nf = NumberFormat.getCurrencyInstance();
  
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                    int after) {
-                // Evita que o método seja executado varias vezes.
-                                // Se tirar ele entre em loop
+            public void onTextChanged(CharSequence s, int start, int before, int after) {
+
                 if (isUpdating) {
                     isUpdating = false;
                     return;
@@ -122,17 +120,14 @@ public class CadastroProduto extends Activity
  
                 isUpdating = true;
                 String str = s.toString();
-                // Verifica se já existe a máscara no texto.
+
                 boolean hasMask = ((str.indexOf(".") > -1 || str.indexOf(",") > -1));
-                                // Verificamos se existe máscara
+                
                 if (hasMask) {
-                    // Retiramos a máscara.
                     str = str.replaceAll("[,]", "").replaceAll("[.]", "");
                 }
  
                 try {
-                    // Transformamos o número que está escrito no EditText em
-                    // monetário.
                     str = nf.format(Double.parseDouble(str) / 100);
                     str = str.replace("R$","");
                     vl_prod.setText(str);
@@ -143,14 +138,11 @@ public class CadastroProduto extends Activity
             }
  
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                    int after) {
-                // Não utilizamos
+            public void beforeTextChanged(CharSequence s, int start, int count,int after) {
             }
  
             @Override
             public void afterTextChanged(Editable s) {
-                // Não utilizamos
             }
         });
 		
