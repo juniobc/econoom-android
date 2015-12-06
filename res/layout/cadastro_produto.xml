@@ -57,6 +57,7 @@
 			android:id="@+id/end_prod"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:inputType="none"
 			android:hint="@string/end_prod"/>
 		
 		<EditText

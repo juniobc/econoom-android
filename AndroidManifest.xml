@@ -45,7 +45,7 @@
         
         <activity
             android:label="@string/app_name"
-            android:name=".MapaEndereco" >
+            android:name=".Home" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
 
@@ -56,6 +56,10 @@
 		<activity 
 			android:label="@string/app_name"
 			android:name=".CadastroProduto"/>
+		
+		<activity 
+			android:label="@string/app_name"
+			android:name=".MapaEndereco"/>
         
     </application>
 

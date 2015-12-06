@@ -33,5 +33,7 @@
 	    <item>Cadastro</item>
 	</string-array>
 	
+	<string name="btn_gravar">Gravar</string>
+	
 
 </resources>
