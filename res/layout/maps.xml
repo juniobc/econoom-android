@@ -11,7 +11,7 @@
         android:id="@+id/btn_gravar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
+        android:layout_gravity="right|bottom"
         android:text="@string/btn_gravar" 
         android:padding="10dp"
         android:layout_marginTop="20dp"/>

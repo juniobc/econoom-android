@@ -6,7 +6,7 @@ import android.database.sqlite.*;
 import java.util.*;
 import com.econoom.entidade.*;
 
-public class NotaServicoDB extends SQLiteOpenHelper
+public class NotaValorDB extends SQLiteOpenHelper
 {
 	
 	private static final int DATABASE_VERSION = 1;
@@ -16,7 +16,7 @@ public class NotaServicoDB extends SQLiteOpenHelper
     private static final String TABLE_PRODUTO = "produtos";
 
     private static final String KEY_ID = "cd_produto";
-	private static final String KEY_TP_NT = "tp_nt"
+	private static final String KEY_TP_NT = "tp_nota";
     private static final String KEY_NM_PROD = "nm_prod";
     private static final String KEY_TP_UN_PROD = "tp_un_prod";
     private static final String KEY_QT_TP_UN = "qt_tp_un";
@@ -28,7 +28,7 @@ public class NotaServicoDB extends SQLiteOpenHelper
 	private static final String KEY_TP_CAD = "tp_cad";
 	private static final String KEY_DT_HR_CAD = "dt_hr_cad";
 
-    public NotaServicoDB(Context context) {
+    public NotaValorDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -54,32 +54,25 @@ public class NotaServicoDB extends SQLiteOpenHelper
 
     public void addProduto(Produto produto) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int tpCad;
 
         ContentValues values = new ContentValues();
         values.put(KEY_NM_PROD, produto.getNome());
         values.put(KEY_TP_UN_PROD, produto.getTpUnidadeMedida());
         values.put(KEY_QT_TP_UN, produto.getQtUnMedida());
-        values.put(KEY_PRECO, Float.toString((produto.valor));
-        values.put(KEY_QUANT, produto.getQuantidade());_
-		values.put(KEY_LAT, produto.getNrLat());
-		values.put(KEY_LONG, produto.getNrLong());
-		if(produto.getTpCad()){
-			tpCad = 1;
-		}else{
-
-			tpCad = 0;
-
-		}
-		values.put(KEY_TP_CAD, tpCad);
+        values.put(KEY_PRECO, Float.toString((produto.getValor())));
+        values.put(KEY_QUANT, produto.getQuantidade());
+        values.put(KEY_CD_BARRA, produto.getCodigoBarras());
+        values.put(KEY_TP_NT, 0);
+		values.put(KEY_LAT, produto.getLatitude());
+		values.put(KEY_LONG, produto.getLongitude());
+		values.put(KEY_TP_CAD, produto.getTpPagamento());
 		values.put(KEY_DT_HR_CAD, System.currentTimeMillis()); 
 
         db.insert(TABLE_PRODUTO, null, values);
         db.close();
     }
 
-
-    NotaServicoDB getProduto(int nm_prod) {
+    /*NotaServicoDB getProduto(int nm_prod) {
         SQLiteDatabase db = this.getReadableDatabase();
         Boolean tpCad;
 
@@ -207,6 +200,6 @@ public class NotaServicoDB extends SQLiteOpenHelper
         cursor.close();
 
         return cursor.getCount();
-    }
+    }*/
 	
 }

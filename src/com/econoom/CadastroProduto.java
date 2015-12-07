@@ -22,9 +22,11 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.inputmethod.InputMethodManager;
 
+import com.econoom.Banco.NotaValorDB;
 import com.econoom.entidade.Conta;
 import com.econoom.entidade.Produto;
 import com.econoom.entidade.Servico;
+
 import java.util.*;
 
 public class CadastroProduto extends Activity
@@ -144,7 +146,9 @@ public class CadastroProduto extends Activity
                 }
  
                 try {
-                    str = nf.format(Double.parseDouble(str) / 100);
+                    str = nf.format(Double.parseDouble(str) / 100).replace("R$","");
+                    if(str.equals("0,00"))
+                    	str = "";
                     vl_prod.setText(str);
                     vl_prod.setSelection(vl_prod.getText().length());
                 } catch (NumberFormatException e) {
@@ -186,9 +190,11 @@ public class CadastroProduto extends Activity
                 }
  
                 try {
-                    str = nf.format(Double.parseDouble(str) / 100);
-                    vl_prod.setText(str);
-                    vl_prod.setSelection(vl_prod.getText().length());
+                    str = nf.format(Double.parseDouble(str) / 100).replace("R$","");
+                    if(str.equals("0,00"))
+                    	str = "";
+                    qt_un_prod.setText(str);
+                    qt_un_prod.setSelection(qt_un_prod.getText().length());
                 } catch (NumberFormatException e) {
                     s = "";
                 }
@@ -256,11 +262,13 @@ public class CadastroProduto extends Activity
 		float qtUnMedida;
 		int quantidade;
 		
+		NotaValorDB db = new NotaValorDB(this);
+		
 		nome = nm_cad.getText().toString();
 		if(vl_prod.getText().toString().equals(""))
 			valor = 0;
 		else
-			valor = Float.parseFloat((vl_prod.getText().toString().replace(",",".")));
+			valor = Float.parseFloat((vl_prod.getText().toString().replace(".","").replace(",",".")));
 		
 		dataValidade = dt_validade.getText().toString();
 		
@@ -294,7 +302,7 @@ public class CadastroProduto extends Activity
 			if(qt_un_prod.getText().toString().equals(""))
 				qtUnMedida = 0;
 			else
-				qtUnMedida = Float.parseFloat((qt_un_prod.getText().toString().replace("R$","").replace(",",".")));
+				qtUnMedida = Float.parseFloat((qt_un_prod.getText().toString().replace(".","").replace(",",".")));
 			if(qt_prod.getText().toString().equals(""))
 				quantidade = 0;
 			else
@@ -302,6 +310,8 @@ public class CadastroProduto extends Activity
 			
 			produto = new Produto(nome,valor,latitude,longitude,dataValidade,tpPagamento,
 			tpUnidadeMedida,codigoBarras,qtUnMedida,quantidade);
+			
+			db.addProduto(produto);
 		
 		}
 		
