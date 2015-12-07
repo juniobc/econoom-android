@@ -2,11 +2,11 @@ package com.econoom.entidade;
 
 public class NotaValor {
 	
-	private int id;
-	private String nome;
-	private float valor;
-	private String dataValidade;
-	private int tpPagamento;
+	protected int id;
+	protected String nome;
+	protected float valor;
+	protected String dataValidade;
+	protected int tpPagamento;
 	
 	public NotaValor(String nome, float valor, String dataValidade, int tpPagamento){
 		

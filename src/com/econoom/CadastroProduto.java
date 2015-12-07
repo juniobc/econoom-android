@@ -25,6 +25,7 @@ import android.view.inputmethod.InputMethodManager;
 import com.econoom.entidade.Conta;
 import com.econoom.entidade.Produto;
 import com.econoom.entidade.Servico;
+import java.util.*;
 
 public class CadastroProduto extends Activity
 {
@@ -144,7 +145,6 @@ public class CadastroProduto extends Activity
  
                 try {
                     str = nf.format(Double.parseDouble(str) / 100);
-                    str = str.replace("R$","");
                     vl_prod.setText(str);
                     vl_prod.setSelection(vl_prod.getText().length());
                 } catch (NumberFormatException e) {
@@ -187,7 +187,6 @@ public class CadastroProduto extends Activity
  
                 try {
                     str = nf.format(Double.parseDouble(str) / 100);
-                    str = str.replace("R$","");
                     vl_prod.setText(str);
                     vl_prod.setSelection(vl_prod.getText().length());
                 } catch (NumberFormatException e) {
@@ -263,7 +262,7 @@ public class CadastroProduto extends Activity
 		else
 			valor = Float.parseFloat((vl_prod.getText().toString().replace(",",".")));
 		
-		dataValidade = "20150101";
+		dataValidade = dt_validade.getText().toString();
 		
 		tpPagamento = tp_pag_prod.getSelectedItemPosition();
 		
