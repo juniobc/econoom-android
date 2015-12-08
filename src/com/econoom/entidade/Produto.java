@@ -19,7 +19,7 @@ public class Produto extends NotaValor {
 		this.qtUnMedida = qtUnMedida;
 		this.quantidade = quantidade;
 		this.latitude = latitude;
-		this.longitude = latitude;
+		this.longitude = longitude;
 		
 	}
 	

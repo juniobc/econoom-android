@@ -1,9 +1,13 @@
 package com.econoom.Banco;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.*;
-import android.database.*;
+import android.database.Cursor;
 import android.database.sqlite.*;
-import java.util.*;
+import android.util.Log;
+
 import com.econoom.entidade.*;
 
 public class NotaValorDB extends SQLiteOpenHelper
@@ -35,12 +39,12 @@ public class NotaValorDB extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_PRODUTOS_TABLE = "CREATE TABLE " + TABLE_PRODUTO + "("
-        	+ KEY_ID + " INTEGER PRIMARY KEY," + KEY_TP_NT + " INTEGER," + KEY_CD_BARRA + " TEXT,"
-        	+ KEY_NM_PROD + " TEXT," + KEY_TP_UN_PROD + " TEXT," 
-        	+ KEY_QT_TP_UN + "REAL,"
+        	+ KEY_ID + " INTEGER PRIMARY KEY," + KEY_TP_NT + " INTEGER," + KEY_CD_BARRA + " REAL,"
+        	+ KEY_NM_PROD + " TEXT," + KEY_TP_UN_PROD + " TEXT," + KEY_QT_TP_UN + " REAL,"
 			+ KEY_PRECO + " REAL," + KEY_QUANT + " INTEGER,"
 			+ KEY_LAT + " TEXT,"
 			+ KEY_LONG + " TEXT," + KEY_TP_CAD + " INTEGER," + KEY_DT_HR_CAD + " INTEGER	" + ")";
+
         db.execSQL(CREATE_PRODUTOS_TABLE);
     }
 
@@ -50,6 +54,36 @@ public class NotaValorDB extends SQLiteOpenHelper
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUTO);
 
         onCreate(db);
+    }
+    
+    public void addConta(Conta conta) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NM_PROD, conta.getNome());
+        values.put(KEY_PRECO, Float.toString((conta.getValor())));
+        values.put(KEY_TP_NT, 1);
+		values.put(KEY_TP_CAD, conta.getTpPagamento());
+		values.put(KEY_DT_HR_CAD, System.currentTimeMillis()); 
+
+        db.insert(TABLE_PRODUTO, null, values);
+        db.close();
+    }
+    
+    public void addServico(Servico servico) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NM_PROD, servico.getNome());
+        values.put(KEY_PRECO, Float.toString((servico.getValor())));
+        values.put(KEY_TP_NT, 2);
+		values.put(KEY_LAT, servico.getLatitude());
+		values.put(KEY_LONG, servico.getLongitude());
+		values.put(KEY_TP_CAD, servico.getTpPagamento());
+		values.put(KEY_DT_HR_CAD, System.currentTimeMillis()); 
+
+        db.insert(TABLE_PRODUTO, null, values);
+        db.close();
     }
 
     public void addProduto(Produto produto) {
@@ -98,55 +132,39 @@ public class NotaValorDB extends SQLiteOpenHelper
 									  cursor.getString(7), tpCad, cursor.getInt(9));
 
         return produto;
-    }
+    }*/
 
     // Getting All Contacts
-    public List<NotaServicoDB> getAllProdutos() {
-        List<NotaServicoDB> produtoList = new ArrayList<NotaServicoDB>();
-        Boolean tpCad;
-        // Select All Query
-        String selectQuery = "SELECT "+KEY_ID+", "+KEY_NM_PROD+", "+KEY_TP_UN_PROD+", "+KEY_QT_TP_UN+", "+KEY_PRECO+", "+KEY_QUANT+", "
-			+KEY_CD_BARRA+", "+KEY_LAT+", "+KEY_LONG+", "+KEY_TP_CAD+", "+KEY_DT_HR_CAD+" FROM " + TABLE_PRODUTO + " ORDER BY cd_produto DESC";
+    public double[] getGastoTotal() {
+
+    	double[] tp_gasto = new double[2];
+        
+        String selectQuery = "SELECT "+KEY_TP_CAD+", SUM("+KEY_PRECO+") FROM " + TABLE_PRODUTO + " WHERE "+KEY_TP_CAD+" IN(0,1) "
+        		+"GROUP BY "+KEY_TP_CAD;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-
+        
         if (cursor.moveToFirst()) {
-            do {
-                NotaServicoDB produto = new NotaServicoDB();
-                produto.setCdProd(cursor.getInt(0));
-                produto.setNome(cursor.getString(1));
-                produto.setTpUnidade(cursor.getString(2));
-                produto.setQtUnidade(cursor.getFloat(3));
-				produto.setPreco(cursor.getFloat(4));
-				produto.setQuantidade(cursor.getInt(5));
-				produto.setCdBarra(cursor.getString(6));
-				produto.setNrLat(cursor.getString(7));
-				produto.setNrLong(cursor.getString(8));
-				if(cursor.getInt(9) == 0){
-
-		        	tpCad = false;
-
-		        }else{
-
-		        	tpCad = true;
-
-		        }
-				produto.setDt_hr(cursor.getInt(10));
-
-				produto.setTpCad(tpCad);
-
-
-                produtoList.add(produto);
-            } while (cursor.moveToNext());
+	        do {
+	        	tp_gasto[0] = cursor.getDouble(0);
+	        	tp_gasto[1] = cursor.getDouble(1);
+	        } while (cursor.moveToNext());
+        }else{
+        	tp_gasto = null;
         }
 
+        if(tp_gasto != null){
+	        Log.d("getGastoTotal","valor1: "+tp_gasto[0]);
+	        Log.d("getGastoTotal","valor2: "+tp_gasto[1]);
+        }else
+        	Log.d("getGastoTotal","valor nulo");
 
-        return produtoList;
+        return tp_gasto;
     }
 
 
-    public int updateProduto(NotaServicoDB produto) {
+    /*public int updateProduto(NotaServicoDB produto) {
         SQLiteDatabase db = this.getWritableDatabase();
         int tpCad;
 

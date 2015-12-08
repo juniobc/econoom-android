@@ -39,9 +39,7 @@ public class MapaEndereco extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.maps);
         
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);  
-        
-        ultimoLocal = new UltimoLocal(this);
+        mapFragment.getMapAsync(this);         
         
         btn_gravar = (Button) findViewById(R.id.btn_gravar);
         
@@ -72,17 +70,29 @@ public class MapaEndereco extends FragmentActivity implements OnMapReadyCallback
 		
 	}
 	
+	@Override
+    protected void onStop() {
+        super.onStop();
+
+        ultimoLocal.disconectar();
+        
+    }
+	
 
     @Override
     public void onMapReady(GoogleMap gMap) {
     	
     	Log.d(TAG, "onMapReady");
     	
+    	ultimoLocal = new UltimoLocal(this);
+    	
     	map = gMap;
     	
     	map.setOnMapLongClickListener(this);
     	
     	map.setMyLocationEnabled(true);
+    	
+    	map.getUiSettings().setMapToolbarEnabled(false);
     	
     	LatLng latLng = new LatLng(getIntent().getDoubleExtra(RESPOSTA_LATITUDE, 0), 
     	getIntent().getDoubleExtra(RESPOSTA_LONGITUDE, 0));

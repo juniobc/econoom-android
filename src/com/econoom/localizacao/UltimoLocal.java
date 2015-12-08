@@ -17,10 +17,13 @@ public final class UltimoLocal implements ConnectionCallbacks, OnConnectionFaile
 	private Location mLastLocation;
 	public GoogleApiClient mGoogleApiClient;
 	private final String TAG = "UltimoLocal";
+	private Context contexto;
 	
 	public UltimoLocal(Context contexto){
 		
-		buildGoogleApiClient(contexto);
+		this.contexto = contexto;
+		
+		buildGoogleApiClient(this.contexto);
 		
 	}
 	
@@ -35,6 +38,13 @@ public final class UltimoLocal implements ConnectionCallbacks, OnConnectionFaile
 		        .build();
 	}
 	
+	public void disconectar(){
+		
+		if(mGoogleApiClient.isConnected())
+			mGoogleApiClient.disconnect();
+		
+	}
+	
 	@Override
 	public void onConnectionFailed(ConnectionResult arg0) {
 		// TODO Auto-generated method stub
@@ -46,10 +56,12 @@ public final class UltimoLocal implements ConnectionCallbacks, OnConnectionFaile
 		Log.d(TAG, "onConnected");
 		mLastLocation = LocationServices.FusedLocationApi.getLastLocation(this.mGoogleApiClient);
 		
-		Log.d(TAG, "latitude:"+mLastLocation.getLatitude());
-		Log.d(TAG, "longitude:"+mLastLocation.getLongitude());
-		
-		MapaEndereco.setMapaLocal(mLastLocation);
+		if(mLastLocation != null){
+			Log.d(TAG, "latitude:"+mLastLocation.getLatitude());
+			Log.d(TAG, "longitude:"+mLastLocation.getLongitude());
+			
+			MapaEndereco.setMapaLocal(mLastLocation);
+		}
 		
 	}
 

@@ -34,6 +34,6 @@
 	</string-array>
 	
 	<string name="btn_gravar">Gravar</string>
-	
+	<string name="txt_gasto_total">Gasto total:</string>
 
 </resources>

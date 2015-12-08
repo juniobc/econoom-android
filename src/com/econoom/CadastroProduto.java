@@ -239,84 +239,167 @@ public class CadastroProduto extends Activity
 		    	return;
 		    }
 		    
-		    latitude = data.getDoubleExtra(MapaEndereco.RESPOSTA_LATITUDE, 0);
-		    longitude = data.getDoubleExtra(MapaEndereco.RESPOSTA_LONGITUDE, 0);
+		    this.latitude = data.getDoubleExtra(MapaEndereco.RESPOSTA_LATITUDE, 0);
+		    this.longitude = data.getDoubleExtra(MapaEndereco.RESPOSTA_LONGITUDE, 0);
+		    
+		    end_prod.setText(Double.toString(latitude)+","+Double.toString(longitude));
 	    
 		}
 		
-		end_prod.setText(Double.toString(latitude)+","+Double.toString(longitude));
     }
 	
 	public void cadastrar(View v){
 		
 		Log.d(TAG,"cadastrar");
 		
-		String nome;
-		float valor;
-		double latitude;
-		double longitude;
-		String dataValidade;
-		int tpPagamento;
-		String tpUnidadeMedida;
-		double codigoBarras;
-		float qtUnMedida;
-		int quantidade;
+		if(consisteCampos()){
 		
-		NotaValorDB db = new NotaValorDB(this);
+			String nome;
+			float valor;
+			double latitude;
+			double longitude;
+			String dataValidade;
+			int tpPagamento;
+			String tpUnidadeMedida;
+			double codigoBarras;
+			float qtUnMedida;
+			int quantidade;
+			
+			NotaValorDB db = new NotaValorDB(this);
+			
+			nome = nm_cad.getText().toString().toUpperCase(Locale.getDefault());
+			if(vl_prod.getText().toString().equals(""))
+				valor = 0;
+			else
+				valor = Float.parseFloat((vl_prod.getText().toString().replace(".","").replace(",",".")));
+			
+			dataValidade = dt_validade.getText().toString().toUpperCase(Locale.getDefault());
+			
+			tpPagamento = tp_pag_prod.getSelectedItemPosition();
+			
+			if(tp_cad_prod.getSelectedItemPosition() == 1){
+				
+				conta = new Conta(nome, valor, dataValidade, tpPagamento);
+				
+				db.addConta(conta);
+				
+				Toast.makeText(this, "Conta cadastrada com sucesso!", Toast.LENGTH_LONG).show();
+				
+			}
+			
+			if(tp_cad_prod.getSelectedItemPosition() == 2){
+				
+				latitude = this.latitude;
+				longitude = this.longitude;
+				
+				servico = new Servico(nome, valor, latitude, longitude, dataValidade, tpPagamento);
+				
+				db.addServico(servico);
+				
+				Toast.makeText(this, "Servico cadastrado com sucesso!", Toast.LENGTH_LONG).show();
+				
+			}
+			
+			if(tp_cad_prod.getSelectedItemPosition() == 0){
+				
+				latitude = this.latitude;
+				longitude = this.longitude;
+			
+				tpUnidadeMedida = un_med_prod.getSelectedItem().toString().toUpperCase(Locale.getDefault());
+				if(cd_barra_prod.getText().toString().equals(""))
+					codigoBarras = 0;
+				else
+					codigoBarras = Double.parseDouble(cd_barra_prod.getText().toString());
+				if(qt_un_prod.getText().toString().equals(""))
+					qtUnMedida = 0;
+				else
+					qtUnMedida = Float.parseFloat((qt_un_prod.getText().toString().replace(".","").replace(",",".")));
+				if(qt_prod.getText().toString().equals(""))
+					quantidade = 0;
+				else
+					quantidade = Integer.parseInt(qt_prod.getText().toString());
+				
+				produto = new Produto(nome,valor,latitude,longitude,dataValidade,tpPagamento,
+				tpUnidadeMedida,codigoBarras,qtUnMedida,quantidade);
+				
+				db.addProduto(produto);
+				
+				Toast.makeText(this, "Produto cadastrado com sucesso!", Toast.LENGTH_LONG).show();
+			
+			}
+			
+			limpa_campos();
+			
+		}
 		
-		nome = nm_cad.getText().toString();
-		if(vl_prod.getText().toString().equals(""))
-			valor = 0;
-		else
-			valor = Float.parseFloat((vl_prod.getText().toString().replace(".","").replace(",",".")));
+	}
+	
+	public boolean consisteCampos(){
 		
-		dataValidade = dt_validade.getText().toString();
+		if(nm_cad.getText().toString().equals("")){			
+			Toast.makeText(this, "Informe o nome!", Toast.LENGTH_LONG).show();
+			return false;			
+		}
 		
-		tpPagamento = tp_pag_prod.getSelectedItemPosition();
+		if(qt_prod.getText().toString().equals("")){			
+			Toast.makeText(this, "Informe o valor!", Toast.LENGTH_LONG).show();
+			return false;			
+		}
 		
 		if(tp_cad_prod.getSelectedItemPosition() == 1){
+		
+			if(dt_validade.getText().toString().equals("")){			
+				Toast.makeText(this, "Informe a data de validade!", Toast.LENGTH_LONG).show();
+				return false;			
+			}
+		
+		}
+		
+		if(tp_cad_prod.getSelectedItemPosition() == 0){
 			
-			conta = new Conta(nome, valor, dataValidade, tpPagamento);
+			if(qt_un_prod.getText().toString().equals("")){			
+				Toast.makeText(this, "Informe a quantidade da unidade de medida!", Toast.LENGTH_LONG).show();
+				return false;			
+			}
+			
+			if(qt_prod.getText().toString().equals("")){			
+				Toast.makeText(this, "Informe a quantidade!", Toast.LENGTH_LONG).show();
+				return false;			
+			}
+			
+			if(end_prod.getText().toString().equals("")){			
+				Toast.makeText(this, "Informe o endereço!", Toast.LENGTH_LONG).show();
+				return false;			
+			}
 			
 		}
 		
 		if(tp_cad_prod.getSelectedItemPosition() == 2){
 			
-			latitude = this.latitude;
-			longitude = this.longitude;
-			
-			servico = new Servico(nome, valor, latitude, longitude, dataValidade, tpPagamento);
+			if(end_prod.getText().toString().equals("")){			
+				Toast.makeText(this, "Informe o endereço!", Toast.LENGTH_LONG).show();
+				return false;			
+			}
 			
 		}
-		
-		if(tp_cad_prod.getSelectedItemPosition() == 0){
 			
-			latitude = this.latitude;
-			longitude = this.longitude;
 		
-			tpUnidadeMedida = tp_pag_prod.getSelectedItem().toString();
-			if(cd_barra_prod.getText().toString().equals(""))
-				codigoBarras = 0;
-			else
-				codigoBarras = Double.parseDouble(cd_barra_prod.getText().toString());
-			if(qt_un_prod.getText().toString().equals(""))
-				qtUnMedida = 0;
-			else
-				qtUnMedida = Float.parseFloat((qt_un_prod.getText().toString().replace(".","").replace(",",".")));
-			if(qt_prod.getText().toString().equals(""))
-				quantidade = 0;
-			else
-				quantidade = Integer.parseInt(qt_prod.getText().toString());
-			
-			produto = new Produto(nome,valor,latitude,longitude,dataValidade,tpPagamento,
-			tpUnidadeMedida,codigoBarras,qtUnMedida,quantidade);
-			
-			db.addProduto(produto);
+		return true;
 		
-		}
+	}
+	
+	public void limpa_campos(){
 		
-		Toast.makeText(this, "Cadastrado com sucesso!", Toast.LENGTH_LONG).show();
-		
+		tp_cad_prod.setSelection(0);
+		nm_cad.setText("");
+		un_med_prod.setSelection(0);		
+		qt_un_prod.setText("");
+		qt_prod.setText("");
+		vl_prod.setText("");
+		cd_barra_prod.setText("");		
+		end_prod.setText("");
+		dt_validade.setText("");
+		tp_pag_prod.setSelection(0);
 		
 	}
 	
