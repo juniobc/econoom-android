@@ -7,14 +7,118 @@ public class NotaValor {
 	protected float valor;
 	protected String dataValidade;
 	protected int tpPagamento;
+	private String tpUnidadeMedida;
+	private double codigoBarras;
+	private float qtUnMedida;
+	private int quantidade;
+	private double latitude;
+	private double longitude;
+	private int tpCad;
+	private String dataCadastro;
 	
-	public NotaValor(String nome, float valor, String dataValidade, int tpPagamento){
+	public NotaValor(String nome, float valor, double latitude, double longitude, String dataValidade, int tpPagamento,
+			String tpUnidadeMedida, double codigoBarras, float qtUnMedida, int quantidade, String dataCadastro){
+		
+		this.nome = nome;
+		this.valor = valor;
+		this.dataValidade = dataValidade;
+		this.tpPagamento = tpPagamento;		
+		this.tpUnidadeMedida = tpUnidadeMedida;
+		this.codigoBarras = codigoBarras;
+		this.qtUnMedida = qtUnMedida;
+		this.quantidade = quantidade;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.dataCadastro = dataCadastro;
+		
+	}
+	
+	public NotaValor(String nome, float valor, double latitude, double longitude, String dataValidade, int tpPagamento, String dataCadastro){
 		
 		this.nome = nome;
 		this.valor = valor;
 		this.dataValidade = dataValidade;
 		this.tpPagamento = tpPagamento;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.dataCadastro = dataCadastro;
 		
+	}
+	
+	public NotaValor(String nome, float valor, String dataValidade, int tpPagamento, String dataCadastro){
+		
+		this.nome = nome;
+		this.valor = valor;
+		this.dataValidade = dataValidade;
+		this.tpPagamento = tpPagamento;
+		this.dataCadastro = dataCadastro;
+		
+	}
+	
+	
+	
+	public int getTpCad() {
+		return tpCad;
+	}
+
+	public void setTpCad(int tpCad) {
+		this.tpCad = tpCad;
+	}
+
+	public String getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(String dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getTpUnidadeMedida() {
+		return tpUnidadeMedida;
+	}
+
+	public void setTpUnidadeMedida(String tpUnidadeMedida) {
+		this.tpUnidadeMedida = tpUnidadeMedida;
+	}
+
+	public double getCodigoBarras() {
+		return codigoBarras;
+	}
+
+	public void setCodigoBarras(long codigoBarras) {
+		this.codigoBarras = codigoBarras;
+	}
+
+	public float getQtUnMedida() {
+		return qtUnMedida;
+	}
+
+	public void setQtUnMedida(float qtUnMedida) {
+		this.qtUnMedida = qtUnMedida;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}
 	
 	public String getNome() {

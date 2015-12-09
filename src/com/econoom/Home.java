@@ -32,6 +32,13 @@ public class Home extends Activity {
 
 	}
 	
+	public void listaNotas(View v){
+		
+		Intent i = new Intent(Home.this, ListaNotas.class);
+		startActivity(i);
+		
+	}
+	
 	public void cadastraProduto(View v){
 		//Log.d(TAG,"cadastraProduto");
 		Intent i = new Intent(Home.this, CadastroProduto.class);

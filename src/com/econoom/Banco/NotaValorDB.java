@@ -134,7 +134,6 @@ public class NotaValorDB extends SQLiteOpenHelper
         return produto;
     }*/
 
-    // Getting All Contacts
     public double[] getGastoTotal() {
 
     	double[] tp_gasto = new double[2];
@@ -161,6 +160,41 @@ public class NotaValorDB extends SQLiteOpenHelper
         	Log.d("getGastoTotal","valor nulo");
 
         return tp_gasto;
+    }
+    
+    public List<Produto> getTodasNotas() {
+
+    	List<Produto> produtos = new ArrayList<Produto>();
+    	Produto produto;
+        
+        String selectQuery = "SELECT "+KEY_NM_PROD+", "+KEY_PRECO+", "+KEY_LAT+", "+KEY_LONG+","
+        +KEY_TP_CAD+", "+KEY_TP_UN_PROD+", "+KEY_CD_BARRA+", "+KEY_QT_TP_UN+", "+KEY_QUANT+", "+KEY_DT_HR_CAD+" FROM " + TABLE_PRODUTO;
+     
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        
+        if (cursor.moveToFirst()) {
+	        do {
+	        	produto = new Produto(
+	        		cursor.getString(0),
+	        		cursor.getFloat(1),
+	        		cursor.getDouble(2),
+	        		cursor.getDouble(3),
+	        		"",
+	        		cursor.getInt(5),
+	        		cursor.getString(4),
+	        		cursor.getDouble(6),
+	        		cursor.getFloat(7),
+	        		cursor.getInt(8)
+	        	);
+	        	produtos.add(produto);
+	        	
+	        } while (cursor.moveToNext());
+        }else{
+        	produtos = null;
+        }
+
+        return produtos;
     }
 
 
