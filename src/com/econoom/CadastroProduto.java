@@ -279,7 +279,7 @@ public class CadastroProduto extends Activity
 			
 			if(tp_cad_prod.getSelectedItemPosition() == 1){
 				
-				conta = new Conta(nome, valor, dataValidade, tpPagamento);
+				conta = new Conta(nome, valor, dataValidade, tpPagamento, "");
 				
 				db.addConta(conta);
 				
@@ -292,7 +292,7 @@ public class CadastroProduto extends Activity
 				latitude = this.latitude;
 				longitude = this.longitude;
 				
-				servico = new Servico(nome, valor, latitude, longitude, dataValidade, tpPagamento);
+				servico = new Servico(nome, valor, latitude, longitude, dataValidade, tpPagamento, "");
 				
 				db.addServico(servico);
 				
@@ -320,7 +320,7 @@ public class CadastroProduto extends Activity
 					quantidade = Integer.parseInt(qt_prod.getText().toString());
 				
 				produto = new Produto(nome,valor,latitude,longitude,dataValidade,tpPagamento,
-				tpUnidadeMedida,codigoBarras,qtUnMedida,quantidade);
+				tpUnidadeMedida,codigoBarras,qtUnMedida,quantidade, "");
 				
 				db.addProduto(produto);
 				

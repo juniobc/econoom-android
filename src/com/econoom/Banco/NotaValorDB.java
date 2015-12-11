@@ -185,7 +185,8 @@ public class NotaValorDB extends SQLiteOpenHelper
 	        		cursor.getString(4),
 	        		cursor.getDouble(6),
 	        		cursor.getFloat(7),
-	        		cursor.getInt(8)
+	        		cursor.getInt(8),
+	        		cursor.getString(9)
 	        	);
 	        	produtos.add(produto);
 	        	
