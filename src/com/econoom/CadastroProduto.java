@@ -279,7 +279,7 @@ public class CadastroProduto extends Activity
 			
 			if(tp_cad_prod.getSelectedItemPosition() == 1){
 				
-				conta = new Conta(nome, valor, dataValidade, tpPagamento, "");
+				conta = new Conta(0, nome, valor, dataValidade, tpPagamento, "");
 				
 				db.addConta(conta);
 				
@@ -292,7 +292,7 @@ public class CadastroProduto extends Activity
 				latitude = this.latitude;
 				longitude = this.longitude;
 				
-				servico = new Servico(nome, valor, latitude, longitude, dataValidade, tpPagamento, "");
+				servico = new Servico(0, nome, valor, latitude, longitude, dataValidade, tpPagamento, "");
 				
 				db.addServico(servico);
 				
@@ -319,7 +319,7 @@ public class CadastroProduto extends Activity
 				else
 					quantidade = Integer.parseInt(qt_prod.getText().toString());
 				
-				produto = new Produto(nome,valor,latitude,longitude,dataValidade,tpPagamento,
+				produto = new Produto(0, nome,valor,latitude,longitude,dataValidade,tpPagamento,
 				tpUnidadeMedida,codigoBarras,qtUnMedida,quantidade, "");
 				
 				db.addProduto(produto);
@@ -341,7 +341,7 @@ public class CadastroProduto extends Activity
 			return false;			
 		}
 		
-		if(qt_prod.getText().toString().equals("")){			
+		if(vl_prod.getText().toString().equals("")){			
 			Toast.makeText(this, "Informe o valor!", Toast.LENGTH_LONG).show();
 			return false;			
 		}

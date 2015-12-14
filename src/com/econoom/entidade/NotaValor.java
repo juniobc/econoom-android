@@ -16,9 +16,10 @@ public class NotaValor {
 	private int tpCad;
 	private String dataCadastro;
 	
-	public NotaValor(String nome, float valor, double latitude, double longitude, String dataValidade, int tpPagamento,
+	public NotaValor(int id, String nome, float valor, double latitude, double longitude, String dataValidade, int tpPagamento,
 			String tpUnidadeMedida, double codigoBarras, float qtUnMedida, int quantidade, String dataCadastro){
 		
+		this.id = id;
 		this.nome = nome;
 		this.valor = valor;
 		this.dataValidade = dataValidade;
@@ -33,8 +34,9 @@ public class NotaValor {
 		
 	}
 	
-	public NotaValor(String nome, float valor, double latitude, double longitude, String dataValidade, int tpPagamento, String dataCadastro){
+	public NotaValor(int id, String nome, float valor, double latitude, double longitude, String dataValidade, int tpPagamento, String dataCadastro){
 		
+		this.id = id;
 		this.nome = nome;
 		this.valor = valor;
 		this.dataValidade = dataValidade;
@@ -45,8 +47,9 @@ public class NotaValor {
 		
 	}
 	
-	public NotaValor(String nome, float valor, String dataValidade, int tpPagamento, String dataCadastro){
+	public NotaValor(int id, String nome, float valor, String dataValidade, int tpPagamento, String dataCadastro){
 		
+		this.id = id;
 		this.nome = nome;
 		this.valor = valor;
 		this.dataValidade = dataValidade;

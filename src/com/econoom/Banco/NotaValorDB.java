@@ -137,6 +137,7 @@ public class NotaValorDB extends SQLiteOpenHelper
     public double[] getGastoTotal() {
 
     	double[] tp_gasto = new double[2];
+    	int cont = 0;
         
         String selectQuery = "SELECT "+KEY_TP_CAD+", SUM("+KEY_PRECO+") FROM " + TABLE_PRODUTO + " WHERE "+KEY_TP_CAD+" IN(0,1) "
         		+"GROUP BY "+KEY_TP_CAD;
@@ -146,8 +147,8 @@ public class NotaValorDB extends SQLiteOpenHelper
         
         if (cursor.moveToFirst()) {
 	        do {
-	        	tp_gasto[0] = cursor.getDouble(0);
-	        	tp_gasto[1] = cursor.getDouble(1);
+	        	tp_gasto[cont] = cursor.getDouble(1);
+	        	cont++;
 	        } while (cursor.moveToNext());
         }else{
         	tp_gasto = null;
@@ -167,7 +168,7 @@ public class NotaValorDB extends SQLiteOpenHelper
     	List<Produto> produtos = new ArrayList<Produto>();
     	Produto produto;
         
-        String selectQuery = "SELECT "+KEY_NM_PROD+", "+KEY_PRECO+", "+KEY_LAT+", "+KEY_LONG+","
+        String selectQuery = "SELECT "+KEY_ID+", "+KEY_NM_PROD+", "+KEY_PRECO+", "+KEY_LAT+", "+KEY_LONG+","
         +KEY_TP_CAD+", "+KEY_TP_UN_PROD+", "+KEY_CD_BARRA+", "+KEY_QT_TP_UN+", "+KEY_QUANT+", "+KEY_DT_HR_CAD+" FROM " + TABLE_PRODUTO;
      
         SQLiteDatabase db = this.getWritableDatabase();
@@ -176,17 +177,18 @@ public class NotaValorDB extends SQLiteOpenHelper
         if (cursor.moveToFirst()) {
 	        do {
 	        	produto = new Produto(
-	        		cursor.getString(0),
-	        		cursor.getFloat(1),
-	        		cursor.getDouble(2),
+	        		cursor.getInt(0),
+	        		cursor.getString(1),
+	        		cursor.getFloat(2),
 	        		cursor.getDouble(3),
+	        		cursor.getDouble(4),
 	        		"",
-	        		cursor.getInt(5),
-	        		cursor.getString(4),
-	        		cursor.getDouble(6),
-	        		cursor.getFloat(7),
-	        		cursor.getInt(8),
-	        		cursor.getString(9)
+	        		cursor.getInt(6),
+	        		cursor.getString(5),
+	        		cursor.getDouble(7),
+	        		cursor.getFloat(8),
+	        		cursor.getInt(9),
+	        		cursor.getString(10)
 	        	);
 	        	produtos.add(produto);
 	        	
