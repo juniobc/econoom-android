@@ -43,13 +43,13 @@ public class ListaProdutos extends ArrayAdapter<Produto> {
 		
 		Produto object = data.get(position);
 		
-		TextView nm_produto = (TextView) convertView.findViewById(R.id.nm_produto);
-		nm_produto.setText(object.getNome());
-		
-		TextView qt_produto = (TextView) convertView.findViewById(R.id.qt_produto);
-		qt_produto.setText(Integer.toString(object.getQuantidade()));
-		
+		TextView nm_produto = (TextView) convertView.findViewById(R.id.nm_produto);		
+		TextView qt_produto = (TextView) convertView.findViewById(R.id.qt_produto);		
 		TextView vl_produto = (TextView) convertView.findViewById(R.id.vl_produto);
+		
+		
+		nm_produto.setText(object.getNome() + " - " + object.getQtUnMedida() + " " + object.getTpUnidadeMedida());
+		qt_produto.setText(Integer.toString(object.getQuantidade()));
 		vl_produto.setText(Float.toString(object.getValor()));
 
 		/*TextView tv_numero = (TextView) convertView.findViewById(R.id.tv_numero);
