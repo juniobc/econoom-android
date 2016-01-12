@@ -1,0 +1,86 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+		android:gravity="center">
+		
+	    <Spinner 
+	        android:id="@+id/tp_cad_prod"
+	        android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"/>
+		
+		<EditText
+			android:id="@+id/nm_cad"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/nm_cad"/>
+		
+		<EditText
+			android:id="@+id/qt_un_prod"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:inputType="numberDecimal"
+			android:hint="@string/qt_un_prod"/>
+		
+		<Spinner 
+	        android:id="@+id/un_med_prod"
+	        android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"/>
+		
+		<EditText
+			android:id="@+id/qt_prod"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:inputType="number"
+			android:hint="@string/qt_prod"/>
+		
+		<EditText
+			android:id="@+id/vl_prod"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/vl_prod"/>
+		
+		<EditText
+			android:id="@+id/cd_barra_prod"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:inputType="number"
+			android:hint="@string/cd_barra_prod"/>
+		
+		<EditText
+			android:id="@+id/end_prod"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:inputType="none"
+			android:hint="@string/end_prod"/>
+		
+		<EditText
+			android:id="@+id/dt_validade"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:inputType="number"
+			android:hint="@string/dt_validade"/>
+		
+		<Spinner 
+	        android:id="@+id/tp_pag_prod"
+	        android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"/>
+		
+		<Button
+		    android:id="@+id/btn_cad_prod"
+		    android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/btn_cad"
+			android:onClick="cadastrar"/>
+	    
+	</LinearLayout>
+
+</ScrollView>
+<!-- From: file:/D:/Users/m1031007/Dropbox/Projetos/econoom-android/app/src/main/res/layout/cadastro_produto.xml -->
