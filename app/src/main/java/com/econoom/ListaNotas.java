@@ -1,27 +1,10 @@
 package com.econoom;
 
-import java.util.HashMap;
-import java.util.List;
-
-import com.econoom.Banco.NotaValorDB;
-import com.econoom.auxiliar.ListaProdutos;
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
-import android.widget.Toast;
-import android.widget.TabHost;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-
-import com.econoom.entidade.Produto;
 
 public class ListaNotas extends AppCompatActivity {
 	
@@ -50,12 +33,10 @@ public class ListaNotas extends AppCompatActivity {
  
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
- 
             }
  
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
- 
             }
         });
     }
@@ -68,7 +49,7 @@ public class ListaNotas extends AppCompatActivity {
 
         setContentView(R.layout.lista_notas);
         
-        ListaProdutos adapter = new ListaProdutos(this,R.layout.list_lista_nota,buscaProduto());       
+        ListaNotasValor adapter = new ListaNotasValor(this,R.layout.list_lista_produto,buscaProduto());
 		
 		listProdView = (ListView) findViewById(R.id.list_prod);
 		

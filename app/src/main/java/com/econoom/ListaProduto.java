@@ -8,7 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.econoom.Banco.NotaValorDB;
-import com.econoom.auxiliar.ListaProdutos;
+import com.econoom.auxiliar.ListaNotasValor;
+import com.econoom.entidade.NotaValor;
 import com.econoom.entidade.Produto;
 
 import android.widget.AdapterView;
@@ -26,7 +27,7 @@ public class ListaProduto extends Fragment {
 
         View view = inflater.inflate(R.layout.lista_produto, container, false);
 
-        ListaProdutos adapter = new ListaProdutos(getActivity(),R.layout.list_lista_nota,buscaProduto());
+        ListaNotasValor adapter = new ListaNotasValor(getActivity(),R.layout.list_lista_produto,buscaProduto());
 
         listProdView = (ListView) view.findViewById(R.id.list_prod);
 
@@ -45,15 +46,15 @@ public class ListaProduto extends Fragment {
 
     }
 
-    public List<Produto> buscaProduto(){
+    public List<NotaValor> buscaProduto(){
 
         List<Produto> produtoList;
 
         NotaValorDB db = new NotaValorDB(getActivity());
 
-        produtoList = db.getTodasNotas();
+        produtoList = db.getTodosProdutos();
 
-        return produtoList;
+        return (List<NotaValor>)(List<?>)produtoList;
 
     }
 

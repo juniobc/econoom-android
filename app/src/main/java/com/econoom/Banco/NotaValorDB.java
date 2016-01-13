@@ -163,10 +163,10 @@ public class NotaValorDB extends SQLiteOpenHelper
         return tp_gasto;
     }
     
-    public List<Produto> getTodasNotas() {
+    public List<NotaValor> getTodasNotas() {
 
-    	List<Produto> produtos = new ArrayList<Produto>();
-    	Produto produto;
+    	List<NotaValor> notasValor = new ArrayList<NotaValor>();
+        NotaValor notaValor;
         
         String selectQuery = "SELECT "+KEY_ID+", "+KEY_NM_PROD+", "+KEY_PRECO+", "+KEY_LAT+", "+KEY_LONG+","
         +KEY_TP_CAD+", "+KEY_TP_UN_PROD+", "+KEY_CD_BARRA+", "+KEY_QT_TP_UN+", "+KEY_QUANT+", "+KEY_DT_HR_CAD+" FROM " + TABLE_PRODUTO;
@@ -176,7 +176,7 @@ public class NotaValorDB extends SQLiteOpenHelper
         
         if (cursor.moveToFirst()) {
 	        do {
-	        	produto = new Produto(
+                notaValor = new NotaValor(
 	        		cursor.getInt(0),
 	        		cursor.getString(1),
 	        		cursor.getFloat(2),
@@ -190,14 +190,117 @@ public class NotaValorDB extends SQLiteOpenHelper
 	        		cursor.getInt(9),
 	        		cursor.getString(10)
 	        	);
-	        	produtos.add(produto);
+                notasValor.add(notaValor);
 	        	
 	        } while (cursor.moveToNext());
         }else{
-        	produtos = null;
+            notasValor = null;
+        }
+
+        return notasValor;
+    }
+
+    public List<Produto> getTodosProdutos() {
+
+        List<Produto> produtos = new ArrayList<Produto>();
+        Produto produto;
+
+        String selectQuery = "SELECT "+KEY_ID+", "+KEY_NM_PROD+", "+KEY_PRECO+", "+KEY_LAT+", "+KEY_LONG+","
+                +KEY_TP_CAD+", "+KEY_TP_UN_PROD+", "+KEY_CD_BARRA+", "+KEY_QT_TP_UN+", "+KEY_QUANT+", "+KEY_DT_HR_CAD+" FROM " + TABLE_PRODUTO
+                +" WHERE "+KEY_TP_NT+" = 0";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                produto = new Produto(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getFloat(2),
+                        cursor.getDouble(3),
+                        cursor.getDouble(4),
+                        "",
+                        cursor.getInt(6),
+                        cursor.getString(5),
+                        cursor.getDouble(7),
+                        cursor.getFloat(8),
+                        cursor.getInt(9),
+                        cursor.getString(10)
+                );
+                produtos.add(produto);
+
+            } while (cursor.moveToNext());
+        }else{
+            produtos = null;
         }
 
         return produtos;
+    }
+
+    public List<Conta> getTodasContas() {
+
+        List<Conta> contas = new ArrayList<Conta>();
+        Conta conta;
+
+        String selectQuery = "SELECT "+KEY_ID+", "+KEY_NM_PROD+", "+KEY_PRECO+ ", " +KEY_TP_CAD+ ", "+KEY_DT_HR_CAD+" FROM " + TABLE_PRODUTO
+                +" WHERE "+KEY_TP_NT+" = 1";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                conta = new Conta(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getFloat(2),
+                        "",
+                        cursor.getInt(3),
+                        cursor.getString(4)
+                );
+                contas.add(conta);
+
+            } while (cursor.moveToNext());
+        }else{
+            contas = null;
+        }
+
+        return contas;
+    }
+
+    public List<Servico> getTodosServicos() {
+
+        List<Servico> servicos = new ArrayList<Servico>();
+        Servico servico;
+
+        String selectQuery = "SELECT "+KEY_ID+", "+KEY_NM_PROD+", "+KEY_PRECO
+                +", "+KEY_LAT+", "+KEY_LONG+", " +KEY_TP_CAD+ ", "+KEY_DT_HR_CAD+" FROM " + TABLE_PRODUTO
+                +" WHERE "+KEY_TP_NT+" = 2";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                servico = new Servico(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getFloat(2),
+                        cursor.getFloat(3),
+                        cursor.getFloat(4),
+                        "",
+                        cursor.getInt(5),
+                        cursor.getString(6)
+                );
+                servicos.add(servico);
+
+            } while (cursor.moveToNext());
+        }else{
+            servicos = null;
+        }
+
+        return servicos;
     }
 
 
