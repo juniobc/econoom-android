@@ -70,9 +70,16 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 		TextView nm_produto = (TextView) convertView.findViewById(R.id.nm_produto);
 		TextView qt_produto = (TextView) convertView.findViewById(R.id.qt_produto);
 		TextView vl_produto = (TextView) convertView.findViewById(R.id.vl_produto);
+		String qtUnidadeMedida;
+
+		qtUnidadeMedida = String.format("%.2f", object.getQtUnMedida());
+
+		if(qtUnidadeMedida.split(",")[1].equals("00")){
+			qtUnidadeMedida = qtUnidadeMedida.split(",")[0];
+		}
 
 		nm_produto.setText(object.getNome() + " - " +
-                String.format("%.2f", object.getQtUnMedida()) + " " + object.getTpUnidadeMedida());
+				qtUnidadeMedida + " " + object.getTpUnidadeMedida());
 		qt_produto.setText(String.format("%d", object.getQuantidade()));
 		vl_produto.setText(String.format("%.2f", object.getValor()));
 

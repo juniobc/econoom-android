@@ -43,6 +43,7 @@ public class CadastroProduto extends Activity
 	private EditText nm_cad;
 	private EditText vl_prod;
 	private EditText dt_validade;
+	private EditText desc_nota_valor;
 	private Produto produto;
 	private Conta conta;
 	private Servico servico;
@@ -67,6 +68,7 @@ public class CadastroProduto extends Activity
 		end_prod = (EditText) findViewById(R.id.end_prod);
 		dt_validade = (EditText) findViewById(R.id.dt_validade);
 		tp_pag_prod = (Spinner) findViewById(R.id.tp_pag_prod);
+		desc_nota_valor = (EditText) findViewById(R.id.desc_nota_valor);
 		
 		//end_prod.setKeyListener(null); 
 		//end_prod.setEnabled(false);
@@ -98,16 +100,20 @@ public class CadastroProduto extends Activity
 					un_med_prod.setVisibility(View.GONE);
 					qt_prod.setVisibility(View.GONE);
 					cd_barra_prod.setVisibility(View.GONE);
-					if(position == 1)
+					if(position == 1) {
 						end_prod.setVisibility(View.GONE);
-					else
+						desc_nota_valor.setVisibility(View.GONE);
+					}else{
 						end_prod.setVisibility(View.VISIBLE);
+						desc_nota_valor.setVisibility(View.VISIBLE);
+					}
 				}else{
 					qt_un_prod.setVisibility(View.VISIBLE);
 					un_med_prod.setVisibility(View.VISIBLE);
 					qt_prod.setVisibility(View.VISIBLE);
 					cd_barra_prod.setVisibility(View.VISIBLE);
 					end_prod.setVisibility(View.VISIBLE);
+					desc_nota_valor.setVisibility(View.VISIBLE);
 				}
 				
 			}
@@ -146,8 +152,8 @@ public class CadastroProduto extends Activity
                 }
  
                 try {
-                    str = nf.format(Double.parseDouble(str) / 100).replace("R$","");
-                    if(str.equals("0,00"))
+                    str = nf.format(Double.parseDouble(str) / 1000).replace("R$","");
+                    if(str.equals("0,000"))
                     	str = "";
                     vl_prod.setText(str);
                     vl_prod.setSelection(vl_prod.getText().length());
@@ -190,8 +196,8 @@ public class CadastroProduto extends Activity
                 }
  
                 try {
-                    str = nf.format(Double.parseDouble(str) / 100).replace("R$","");
-                    if(str.equals("0,00"))
+                    str = nf.format(Double.parseDouble(str) / 1000).replace("R$","");
+                    if(str.equals("0,000"))
                     	str = "";
                     qt_un_prod.setText(str);
                     qt_un_prod.setSelection(qt_un_prod.getText().length());
@@ -264,10 +270,12 @@ public class CadastroProduto extends Activity
 			double codigoBarras;
 			float qtUnMedida;
 			int quantidade;
+			String descNotaValor;
 			
 			NotaValorDB db = new NotaValorDB(this);
 			
 			nome = nm_cad.getText().toString().toUpperCase(Locale.getDefault());
+
 			if(vl_prod.getText().toString().equals(""))
 				valor = 0;
 			else
@@ -279,7 +287,7 @@ public class CadastroProduto extends Activity
 			
 			if(tp_cad_prod.getSelectedItemPosition() == 1){
 				
-				conta = new Conta(0, nome, valor, dataValidade, tpPagamento, "");
+				conta = new Conta(0, nome, valor, dataValidade, tpPagamento, 0);
 				
 				db.addConta(conta);
 				
@@ -288,11 +296,13 @@ public class CadastroProduto extends Activity
 			}
 			
 			if(tp_cad_prod.getSelectedItemPosition() == 2){
+
+				descNotaValor = desc_nota_valor.getText().toString();
 				
 				latitude = this.latitude;
 				longitude = this.longitude;
 				
-				servico = new Servico(0, nome, valor, latitude, longitude, dataValidade, tpPagamento, "");
+				servico = new Servico(0, nome, valor, latitude, longitude, dataValidade, tpPagamento, 0, descNotaValor);
 				
 				db.addServico(servico);
 				
@@ -301,6 +311,8 @@ public class CadastroProduto extends Activity
 			}
 			
 			if(tp_cad_prod.getSelectedItemPosition() == 0){
+
+				descNotaValor = desc_nota_valor.getText().toString();
 				
 				latitude = this.latitude;
 				longitude = this.longitude;
@@ -320,7 +332,7 @@ public class CadastroProduto extends Activity
 					quantidade = Integer.parseInt(qt_prod.getText().toString());
 				
 				produto = new Produto(0, nome,valor,latitude,longitude,dataValidade,tpPagamento,
-				tpUnidadeMedida,codigoBarras,qtUnMedida,quantidade, "");
+				tpUnidadeMedida,codigoBarras,qtUnMedida,quantidade, 0, descNotaValor);
 				
 				db.addProduto(produto);
 				

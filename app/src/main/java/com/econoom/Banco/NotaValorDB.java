@@ -45,7 +45,8 @@ public class NotaValorDB extends SQLiteOpenHelper
         	+ KEY_NM_PROD + " TEXT," + KEY_TP_UN_PROD + " TEXT," + KEY_QT_TP_UN + " REAL,"
 			+ KEY_PRECO + " REAL," + KEY_QUANT + " INTEGER,"
 			+ KEY_LAT + " TEXT,"
-			+ KEY_LONG + " TEXT," + KEY_TP_CAD + " INTEGER," + KEY_DT_HR_CAD + " INTEGER	" + ")";
+			+ KEY_LONG + " TEXT," + KEY_TP_CAD + " INTEGER," + KEY_DT_HR_CAD + " INTEGER, "
+            +KEY_DESC_NT + " TEXT, "+KEY_DT_VENC+" TEXT )";
 
         db.execSQL(CREATE_PRODUTOS_TABLE);
     }
@@ -85,7 +86,8 @@ public class NotaValorDB extends SQLiteOpenHelper
 		values.put(KEY_LAT, servico.getLatitude());
 		values.put(KEY_LONG, servico.getLongitude());
 		values.put(KEY_TP_CAD, servico.getTpPagamento());
-		values.put(KEY_DT_HR_CAD, System.currentTimeMillis()); 
+		values.put(KEY_DT_HR_CAD, System.currentTimeMillis());
+        values.put(KEY_DESC_NT, servico.getDescNotaValor());
 
         db.insert(TABLE_PRODUTO, null, values);
         db.close();
@@ -110,34 +112,6 @@ public class NotaValorDB extends SQLiteOpenHelper
         db.insert(TABLE_PRODUTO, null, values);
         db.close();
     }
-
-    /*NotaServicoDB getProduto(int nm_prod) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Boolean tpCad;
-
-        Cursor cursor = db.query(TABLE_PRODUTO, new String[] { KEY_ID,
-									 KEY_NM_PROD, KEY_TP_UN_PROD, KEY_QT_TP_UN, KEY_PRECO, KEY_CD_BARRA, KEY_QUANT, 
-									 KEY_LAT, KEY_LONG, KEY_TP_CAD, KEY_DT_HR_CAD }, KEY_NM_PROD + "=?",
-								 new String[] { String.valueOf(nm_prod) }, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        if(cursor.getInt(8) == 0){
-
-        	tpCad = false;
-
-        }else{
-
-        	tpCad = true;
-
-        }
-
-		NotaServicoDB produto = new NotaServicoDB(cursor.getInt(0), cursor.getString(1), cursor.getString(2), 
-									  cursor.getFloat(3), cursor.getFloat(4), cursor.getInt(5), cursor.getString(6), 
-									  cursor.getString(7), tpCad, cursor.getInt(9));
-
-        return produto;
-    }*/
 
     public double[] getGastoTotal() {
 
@@ -174,7 +148,8 @@ public class NotaValorDB extends SQLiteOpenHelper
         NotaValor notaValor;
         
         String selectQuery = "SELECT "+KEY_ID+", "+KEY_NM_PROD+", "+KEY_PRECO+", "+KEY_LAT+", "+KEY_LONG+","
-        +KEY_TP_CAD+", "+KEY_TP_UN_PROD+", "+KEY_CD_BARRA+", "+KEY_QT_TP_UN+", "+KEY_QUANT+", "+KEY_DT_HR_CAD+" FROM " + TABLE_PRODUTO;
+        +KEY_TP_CAD+", "+KEY_TP_UN_PROD+", "+KEY_CD_BARRA+", "+KEY_QT_TP_UN+", "
+        +KEY_QUANT+", "+KEY_DT_HR_CAD+", "+KEY_DESC_NT+" FROM " + TABLE_PRODUTO;
      
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -193,7 +168,8 @@ public class NotaValorDB extends SQLiteOpenHelper
 	        		cursor.getDouble(7),
 	        		cursor.getFloat(8),
 	        		cursor.getInt(9),
-	        		cursor.getString(10)
+	        		cursor.getLong(10),
+                    cursor.getString(11)
 	        	);
                 notasValor.add(notaValor);
 	        	
@@ -211,7 +187,8 @@ public class NotaValorDB extends SQLiteOpenHelper
         Produto produto;
 
         String selectQuery = "SELECT "+KEY_ID+", "+KEY_NM_PROD+", "+KEY_PRECO+", "+KEY_LAT+", "+KEY_LONG+","
-                +KEY_TP_CAD+", "+KEY_TP_UN_PROD+", "+KEY_CD_BARRA+", "+KEY_QT_TP_UN+", "+KEY_QUANT+", "+KEY_DT_HR_CAD+" FROM " + TABLE_PRODUTO
+                +KEY_TP_CAD+", "+KEY_TP_UN_PROD+", "+KEY_CD_BARRA+", "+KEY_QT_TP_UN+", "
+                +KEY_QUANT+", "+KEY_DT_HR_CAD+", "+KEY_DESC_NT+" FROM " + TABLE_PRODUTO
                 +" WHERE "+KEY_TP_NT+" = 0 ORDER BY "+KEY_ID+" DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -220,18 +197,19 @@ public class NotaValorDB extends SQLiteOpenHelper
         if (cursor.moveToFirst()) {
             do {
                 produto = new Produto(
-                        cursor.getInt(0),
-                        cursor.getString(1),
-                        cursor.getFloat(2),
-                        cursor.getDouble(3),
-                        cursor.getDouble(4),
+                        cursor.getInt(cursor.getColumnIndex(KEY_ID)),
+                        cursor.getString(cursor.getColumnIndex(KEY_NM_PROD)),
+                        cursor.getFloat(cursor.getColumnIndex(KEY_PRECO)),
+                        cursor.getDouble(cursor.getColumnIndex(KEY_LAT)),
+                        cursor.getDouble(cursor.getColumnIndex(KEY_LONG)),
                         "",
-                        cursor.getInt(6),
-                        cursor.getString(5),
-                        cursor.getDouble(7),
-                        cursor.getFloat(8),
-                        cursor.getInt(9),
-                        cursor.getString(10)
+                        cursor.getInt(cursor.getColumnIndex(KEY_TP_CAD)),
+                        cursor.getString(cursor.getColumnIndex(KEY_TP_UN_PROD)),
+                        cursor.getDouble(cursor.getColumnIndex(KEY_CD_BARRA)),
+                        cursor.getFloat(cursor.getColumnIndex(KEY_QT_TP_UN)),
+                        cursor.getInt(cursor.getColumnIndex(KEY_QUANT)),
+                        cursor.getLong(cursor.getColumnIndex(KEY_DT_HR_CAD)),
+                        cursor.getString(cursor.getColumnIndex(KEY_DESC_NT))
                 );
                 produtos.add(produto);
 
@@ -257,12 +235,12 @@ public class NotaValorDB extends SQLiteOpenHelper
         if (cursor.moveToFirst()) {
             do {
                 conta = new Conta(
-                        cursor.getInt(0),
-                        cursor.getString(1),
-                        cursor.getFloat(2),
+                        cursor.getInt(cursor.getColumnIndex(KEY_ID)),
+                        cursor.getString(cursor.getColumnIndex(KEY_NM_PROD)),
+                        cursor.getFloat(cursor.getColumnIndex(KEY_PRECO)),
                         "",
-                        cursor.getInt(3),
-                        cursor.getString(4)
+                        cursor.getInt(cursor.getColumnIndex(KEY_TP_CAD)),
+                        cursor.getLong(cursor.getColumnIndex(KEY_DT_HR_CAD))
                 );
                 contas.add(conta);
 
@@ -280,7 +258,8 @@ public class NotaValorDB extends SQLiteOpenHelper
         Servico servico;
 
         String selectQuery = "SELECT "+KEY_ID+", "+KEY_NM_PROD+", "+KEY_PRECO
-                +", "+KEY_LAT+", "+KEY_LONG+", " +KEY_TP_CAD+ ", "+KEY_DT_HR_CAD+" FROM " + TABLE_PRODUTO
+                +", "+KEY_LAT+", "+KEY_LONG+", " +KEY_TP_CAD+ ", "
+                +KEY_DT_HR_CAD+", "+KEY_DESC_NT+" FROM " + TABLE_PRODUTO
                 +" WHERE "+KEY_TP_NT+" = 2 ORDER BY "+ KEY_ID+" DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -289,14 +268,15 @@ public class NotaValorDB extends SQLiteOpenHelper
         if (cursor.moveToFirst()) {
             do {
                 servico = new Servico(
-                        cursor.getInt(0),
-                        cursor.getString(1),
-                        cursor.getFloat(2),
-                        cursor.getFloat(3),
-                        cursor.getFloat(4),
+                        cursor.getInt(cursor.getColumnIndex(KEY_ID)),
+                        cursor.getString(cursor.getColumnIndex(KEY_NM_PROD)),
+                        cursor.getFloat(cursor.getColumnIndex(KEY_PRECO)),
+                        cursor.getFloat(cursor.getColumnIndex(KEY_LAT)),
+                        cursor.getFloat(cursor.getColumnIndex(KEY_LONG)),
                         "",
-                        cursor.getInt(5),
-                        cursor.getString(6)
+                        cursor.getInt(cursor.getColumnIndex(KEY_TP_CAD)),
+                        cursor.getLong(cursor.getColumnIndex(KEY_DT_HR_CAD)),
+                        cursor.getString(cursor.getColumnIndex(KEY_DESC_NT))
                 );
                 servicos.add(servico);
 

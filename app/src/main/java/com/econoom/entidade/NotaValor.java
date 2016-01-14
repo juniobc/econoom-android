@@ -14,10 +14,11 @@ public class NotaValor {
 	private double latitude;
 	private double longitude;
 	private int tpCad;
-	private String dataCadastro;
+	private long dataCadastro;
+	private String descNotaValor;
 	
 	public NotaValor(int id, String nome, float valor, double latitude, double longitude, String dataValidade, int tpPagamento,
-			String tpUnidadeMedida, double codigoBarras, float qtUnMedida, int quantidade, String dataCadastro){
+			String tpUnidadeMedida, double codigoBarras, float qtUnMedida, int quantidade, long dataCadastro, String descNotaValor){
 		
 		this.id = id;
 		this.nome = nome;
@@ -31,10 +32,12 @@ public class NotaValor {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.dataCadastro = dataCadastro;
+		this.descNotaValor = descNotaValor;
 		
 	}
 	
-	public NotaValor(int id, String nome, float valor, double latitude, double longitude, String dataValidade, int tpPagamento, String dataCadastro){
+	public NotaValor(int id, String nome, float valor, double latitude, double longitude,
+					 String dataValidade, int tpPagamento, long dataCadastro, String descNotaValor){
 		
 		this.id = id;
 		this.nome = nome;
@@ -44,10 +47,11 @@ public class NotaValor {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.dataCadastro = dataCadastro;
+		this.descNotaValor = descNotaValor;
 		
 	}
 	
-	public NotaValor(int id, String nome, float valor, String dataValidade, int tpPagamento, String dataCadastro){
+	public NotaValor(int id, String nome, float valor, String dataValidade, int tpPagamento, long dataCadastro){
 		
 		this.id = id;
 		this.nome = nome;
@@ -68,11 +72,11 @@ public class NotaValor {
 		this.tpCad = tpCad;
 	}
 
-	public String getDataCadastro() {
+	public long getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(String dataCadastro) {
+	public void setDataCadastro(long dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
 
@@ -152,7 +156,13 @@ public class NotaValor {
 	public void setTpPagamento(int tpPagamento) {
 		this.tpPagamento = tpPagamento;
 	}
-	
-	
 
+
+	public String getDescNotaValor() {
+		return descNotaValor;
+	}
+
+	public void setDescNotaValor(String descNotaValor) {
+		this.descNotaValor = descNotaValor;
+	}
 }

@@ -5,6 +5,7 @@
 	<string name="btn_cad">Cadastrar</string>
 	<string name="btn_listar">Listar</string>
 	<string name="nm_cad">Nome</string>
+	<string name="desc_nota_valor">Descrição</string>
 	<string-array name="tp_cad_prod">
 	    
 	    <item>Produto</item>
@@ -18,6 +19,10 @@
 	    <item>Ml</item>
 	    <item>L</item>
 	    <item>G</item>
+		<item>KG</item>
+		<item>M</item>
+		<item>M²</item>
+		<item>POL</item>
 		<item>Un</item>
 
 	</string-array>
