@@ -107,7 +107,8 @@ public class NotaValorDB extends SQLiteOpenHelper
 		values.put(KEY_LAT, produto.getLatitude());
 		values.put(KEY_LONG, produto.getLongitude());
 		values.put(KEY_TP_CAD, produto.getTpPagamento());
-		values.put(KEY_DT_HR_CAD, System.currentTimeMillis()); 
+		values.put(KEY_DT_HR_CAD, System.currentTimeMillis());
+        values.put(KEY_DESC_NT, produto.getDescNotaValor());
 
         db.insert(TABLE_PRODUTO, null, values);
         db.close();

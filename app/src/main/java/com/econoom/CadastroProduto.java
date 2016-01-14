@@ -152,8 +152,8 @@ public class CadastroProduto extends Activity
                 }
  
                 try {
-                    str = nf.format(Double.parseDouble(str) / 1000).replace("R$","");
-                    if(str.equals("0,000"))
+                    str = nf.format(Double.parseDouble(str) / 100).replace("R$","");
+                    if(str.equals("0,00"))
                     	str = "";
                     vl_prod.setText(str);
                     vl_prod.setSelection(vl_prod.getText().length());
@@ -196,8 +196,8 @@ public class CadastroProduto extends Activity
                 }
  
                 try {
-                    str = nf.format(Double.parseDouble(str) / 1000).replace("R$","");
-                    if(str.equals("0,000"))
+                    str = nf.format(Double.parseDouble(str) / 100).replace("R$","");
+                    if(str.equals("0,00"))
                     	str = "";
                     qt_un_prod.setText(str);
                     qt_un_prod.setSelection(qt_un_prod.getText().length());
@@ -412,6 +412,7 @@ public class CadastroProduto extends Activity
 		end_prod.setText("");
 		dt_validade.setText("");
 		tp_pag_prod.setSelection(0);
+		desc_nota_valor.setText("");
 		
 	}
 	
