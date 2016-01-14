@@ -17,11 +17,14 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 	Context context;
 	private int resource;
     List<NotaValor> data = null;
-	public ListaNotasValor(Context context, int resource, List<NotaValor> object) {
+	private int tipoNota;
+
+	public ListaNotasValor(Context context, int resource, List<NotaValor> object, int tipoNota) {
 		super(context, resource, object);
 		this.context = context;
 		this.resource = resource;
 		this.data = object;
+		this.tipoNota = tipoNota;
 	}
 
 	@Override
@@ -44,9 +47,9 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 
 		NotaValor object = data.get(position);
 
-		if(object.getTpCad() == 0){
+		if(tipoNota == 0){
 			mostraProdutos(object, convertView);
-		}else if(object.getTpCad() == 1){
+		}else if(tipoNota == 1){
 			mostraContas(object, convertView);
 		}else{
 			mostraServicos(object, convertView);

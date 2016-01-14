@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.util.Log;
 
 import com.econoom.Banco.NotaValorDB;
 import com.econoom.auxiliar.ListaNotasValor;
@@ -18,13 +19,14 @@ import java.util.List;
 
 public class ListaConta extends Fragment {
 
+    private final static String TAG = "ListaConta";
     private ListView listProdView;
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.lista_produto, container, false);
 
-        ListaNotasValor adapter = new ListaNotasValor(getActivity(),R.layout.list_lista_conta,buscaConta());
+        ListaNotasValor adapter = new ListaNotasValor(getActivity(),R.layout.list_lista_conta,buscaConta(),1);
 
         listProdView = (ListView) view.findViewById(R.id.list_prod);
 
@@ -42,7 +44,7 @@ public class ListaConta extends Fragment {
         return view;
     }
 
-    public List<NotaValor> buscaConta(){
+    public List<NotaValor> buscaConta() {
 
         List<Conta> contaList;
 
@@ -50,7 +52,7 @@ public class ListaConta extends Fragment {
 
         contaList = db.getTodasContas();
 
-        return (List<NotaValor>)(List<?>)contaList;
+        return (List<NotaValor>) (List<?>) contaList;
 
     }
 

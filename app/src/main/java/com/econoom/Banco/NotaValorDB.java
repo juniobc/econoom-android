@@ -13,7 +13,7 @@ import com.econoom.entidade.*;
 public class NotaValorDB extends SQLiteOpenHelper
 {
 	
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 
     private static final String DATABASE_NAME = "econoom";
 
@@ -31,6 +31,8 @@ public class NotaValorDB extends SQLiteOpenHelper
 	private static final String KEY_LONG = "cd_long";
 	private static final String KEY_TP_CAD = "tp_cad";
 	private static final String KEY_DT_HR_CAD = "dt_hr_cad";
+    private static final String KEY_DESC_NT = "desc_nota";
+    private static final String KEY_DT_VENC = "dt_venc_nota";
 
     public NotaValorDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -51,9 +53,12 @@ public class NotaValorDB extends SQLiteOpenHelper
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUTO);
+        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUTO);
+        if (oldVersion < 2) {
+            db.execSQL("ALTER TABLE "+TABLE_PRODUTO+" ADD COLUMN "+KEY_DESC_NT+" TEXT");
+            db.execSQL("ALTER TABLE "+TABLE_PRODUTO+" ADD COLUMN "+KEY_DT_VENC+" TEXT");
+        }
 
-        onCreate(db);
     }
     
     public void addConta(Conta conta) {
@@ -207,7 +212,7 @@ public class NotaValorDB extends SQLiteOpenHelper
 
         String selectQuery = "SELECT "+KEY_ID+", "+KEY_NM_PROD+", "+KEY_PRECO+", "+KEY_LAT+", "+KEY_LONG+","
                 +KEY_TP_CAD+", "+KEY_TP_UN_PROD+", "+KEY_CD_BARRA+", "+KEY_QT_TP_UN+", "+KEY_QUANT+", "+KEY_DT_HR_CAD+" FROM " + TABLE_PRODUTO
-                +" WHERE "+KEY_TP_NT+" = 0";
+                +" WHERE "+KEY_TP_NT+" = 0 ORDER BY "+KEY_ID+" DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -244,7 +249,7 @@ public class NotaValorDB extends SQLiteOpenHelper
         Conta conta;
 
         String selectQuery = "SELECT "+KEY_ID+", "+KEY_NM_PROD+", "+KEY_PRECO+ ", " +KEY_TP_CAD+ ", "+KEY_DT_HR_CAD+" FROM " + TABLE_PRODUTO
-                +" WHERE "+KEY_TP_NT+" = 1";
+                +" WHERE "+KEY_TP_NT+" = 1 ORDER BY "+ KEY_ID+" DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -276,7 +281,7 @@ public class NotaValorDB extends SQLiteOpenHelper
 
         String selectQuery = "SELECT "+KEY_ID+", "+KEY_NM_PROD+", "+KEY_PRECO
                 +", "+KEY_LAT+", "+KEY_LONG+", " +KEY_TP_CAD+ ", "+KEY_DT_HR_CAD+" FROM " + TABLE_PRODUTO
-                +" WHERE "+KEY_TP_NT+" = 2";
+                +" WHERE "+KEY_TP_NT+" = 2 ORDER BY "+ KEY_ID+" DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);

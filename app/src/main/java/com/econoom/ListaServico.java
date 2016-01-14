@@ -25,7 +25,7 @@ public class ListaServico extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.lista_produto, container, false);
 
-        ListaNotasValor adapter = new ListaNotasValor(getActivity(),R.layout.list_lista_conta,buscaServico());
+        ListaNotasValor adapter = new ListaNotasValor(getActivity(),R.layout.list_lista_conta,buscaServico(),2);
 
         listProdView = (ListView) view.findViewById(R.id.list_prod);
 

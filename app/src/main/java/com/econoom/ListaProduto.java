@@ -27,7 +27,7 @@ public class ListaProduto extends Fragment {
 
         View view = inflater.inflate(R.layout.lista_produto, container, false);
 
-        ListaNotasValor adapter = new ListaNotasValor(getActivity(),R.layout.list_lista_produto,buscaProduto());
+        ListaNotasValor adapter = new ListaNotasValor(getActivity(),R.layout.list_lista_produto,buscaProduto(),0);
 
         listProdView = (ListView) view.findViewById(R.id.list_prod);
 
