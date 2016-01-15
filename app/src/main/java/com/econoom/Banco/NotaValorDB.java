@@ -33,6 +33,7 @@ public class NotaValorDB extends SQLiteOpenHelper
 	private static final String KEY_DT_HR_CAD = "dt_hr_cad";
     private static final String KEY_DESC_NT = "desc_nota";
     private static final String KEY_DT_VENC = "dt_venc_nota";
+    private static final String TAG = "NotaValorDB";
 
     public NotaValorDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -114,33 +115,64 @@ public class NotaValorDB extends SQLiteOpenHelper
         db.close();
     }
 
-    public double[] getGastoTotal() {
-
-    	double[] tp_gasto = new double[2];
-    	int cont = 0;
+    public double[] getGastoDebitoCredito() {
         
         String selectQuery = "SELECT "+KEY_TP_CAD+", SUM("+KEY_PRECO+") FROM " + TABLE_PRODUTO + " WHERE "+KEY_TP_CAD+" IN(0,1) "
         		+"GROUP BY "+KEY_TP_CAD;
+
+        double[] somaCredDeb = new double[2];
+        int cont = 0;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         
         if (cursor.moveToFirst()) {
 	        do {
-	        	tp_gasto[cont] = cursor.getDouble(1);
+                somaCredDeb[cont] = cursor.getDouble(1);
 	        	cont++;
 	        } while (cursor.moveToNext());
         }else{
-        	tp_gasto = null;
+            somaCredDeb = null;
         }
 
-        if(tp_gasto != null){
-	        Log.d("getGastoTotal","valor1: "+tp_gasto[0]);
-	        Log.d("getGastoTotal","valor2: "+tp_gasto[1]);
-        }else
-        	Log.d("getGastoTotal","valor nulo");
+        return somaCredDeb;
+    }
 
-        return tp_gasto;
+    public void gastoMes(){
+
+        String selectQuery = "SELECT "+KEY_DT_HR_CAD+" FROM " + TABLE_PRODUTO + " WHERE "+KEY_TP_CAD+" IN(0,1) ";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            Log.d(TAG,cursor.getString(0));
+        }
+
+    }
+
+    public double[] gastoIntervData(long dataInicial, long dataFinal){
+
+        String selectQuery = "SELECT "+KEY_TP_CAD+", SUM("+KEY_PRECO+") FROM " + TABLE_PRODUTO + " WHERE "+KEY_TP_CAD+" IN(0,1) "
+                +" AND "+KEY_DT_HR_CAD+" BETWEEN "+dataInicial+" AND "+dataFinal
+                +" GROUP BY "+KEY_TP_CAD;
+
+        double[] somaCredDeb = new double[2];
+        int cont = 0;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                somaCredDeb[cont] = cursor.getDouble(1);
+                cont++;
+            } while (cursor.moveToNext());
+        }else{
+            somaCredDeb = null;
+        }
+
+        return somaCredDeb;
     }
     
     public List<NotaValor> getTodasNotas() {

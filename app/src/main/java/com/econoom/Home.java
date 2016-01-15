@@ -51,9 +51,11 @@ public class Home extends Activity {
 		NotaValorDB db = new NotaValorDB(this);
         
         txt_gasto_total = (TextView) findViewById(R.id.txt_gasto_total);
+
+        db.gastoMes();
         
-        if(db.getGastoTotal() != null){
-        	gastoTotal = db.getGastoTotal()[0] + db.getGastoTotal()[1];
+        if(db.getGastoDebitoCredito() != null){
+        	gastoTotal = db.getGastoDebitoCredito()[0] + db.getGastoDebitoCredito()[1];
         	txt_gasto_total.setText("R$ "+String.format("%.2f",gastoTotal).replace(".",","));
         }else
         	txt_gasto_total.setText("0,00");

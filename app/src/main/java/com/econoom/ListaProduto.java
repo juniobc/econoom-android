@@ -2,7 +2,9 @@ package com.econoom;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -21,9 +23,12 @@ import java.util.List;
 public class ListaProduto extends Fragment {
 
     private ListView listProdView;
+    private final static String TAG = "ListaProduto";
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        Log.d(TAG,"onCreateView");
 
         View view = inflater.inflate(R.layout.lista_produto, container, false);
 
