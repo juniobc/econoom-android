@@ -140,13 +140,15 @@ public class NotaValorDB extends SQLiteOpenHelper
 
     public void gastoMes(){
 
-        String selectQuery = "SELECT "+KEY_DT_HR_CAD+" FROM " + TABLE_PRODUTO + " WHERE "+KEY_TP_CAD+" IN(0,1) ";
+        String selectQuery = "SELECT strftime('%m',"+KEY_DT_HR_CAD+"/ 1000, 'unixepoch') FROM " + TABLE_PRODUTO + " WHERE "+KEY_TP_CAD+" IN(0,1) and strftime('%m',"+KEY_DT_HR_CAD+"/ 1000, 'unixepoch') = '12'";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
             Log.d(TAG,cursor.getString(0));
+        }else{
+            Log.d(TAG,"nenhum resultado!");
         }
 
     }

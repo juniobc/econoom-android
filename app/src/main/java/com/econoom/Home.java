@@ -52,7 +52,7 @@ public class Home extends Activity {
         
         txt_gasto_total = (TextView) findViewById(R.id.txt_gasto_total);
 
-        db.gastoMes();
+        //db.gastoMes();
         
         if(db.getGastoDebitoCredito() != null){
         	gastoTotal = db.getGastoDebitoCredito()[0] + db.getGastoDebitoCredito()[1];

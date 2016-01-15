@@ -31,7 +31,6 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
     private int posicaoAnt;
     private int posicaoAtual;
     private NotaValor objectAnt;
-    private double somaMes;
 
 	public ListaNotasValor(Context context, int resource, List<NotaValor> object, int tipoNota) {
         super(context, resource, object);
@@ -74,6 +73,11 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 		}else{
 			mostraServicos(object, convertView);
 		}
+
+		/*TextView tv_numero = (TextView) convertView.findViewById(R.id.tv_numero);
+		tv_numero.setText(object.numero);
+		TextView tv_tempo = (TextView) convertView.findViewById(R.id.tv_tempo);
+		tv_tempo.setText(String.valueOf(object.cont));*/
 		
 		return convertView;
 	}
