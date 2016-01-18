@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,8 +46,6 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-        Log.d(TAG, "getView");
-
 		if(convertView == null){
 			LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 			convertView = inflater.inflate(resource, parent,false);
@@ -59,6 +58,8 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 		else{
 			root.setBackgroundColor(convertView.getResources().getColor(R.color.white));
 		}*/
+
+        LinearLayout root = (LinearLayout) convertView.findViewById(R.id.row);
 
 		NotaValor object = data.get(position);
         posicaoAtual = position;
@@ -75,6 +76,14 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 		}else{
 			mostraServicos(object, convertView);
 		}
+
+        Log.d(TAG, "getView getTpPagamento: " + object.getTpPagamento());
+
+        if(object.getTpPagamento() == 0){
+
+            root.setBackgroundColor(ContextCompat.getColor(context, R.color.notaValorComprado));
+
+        }
 
 		/*TextView tv_numero = (TextView) convertView.findViewById(R.id.tv_numero);
 		tv_numero.setText(object.numero);

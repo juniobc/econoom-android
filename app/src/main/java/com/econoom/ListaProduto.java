@@ -32,6 +32,11 @@ public class ListaProduto extends Fragment {
 
         View view = inflater.inflate(R.layout.lista_produto, container, false);
 
+        Log.d(TAG, "onCreateView nome: " + buscaProduto().get(0).getNome());
+        Log.d(TAG, "onCreateView tp_pagamento: " + buscaProduto().get(0).getTpPagamento());
+        Log.d(TAG, "onCreateView nome: " + buscaProduto().get(7).getNome());
+        Log.d(TAG, "onCreateView tp_pagamento: " + buscaProduto().get(7).getTpPagamento());
+
         ListaNotasValor adapter = new ListaNotasValor(getActivity(),R.layout.list_lista_produto,buscaProduto(),0);
 
         listProdView = (ListView) view.findViewById(R.id.list_prod);
