@@ -153,10 +153,10 @@ public class NotaValorDB extends SQLiteOpenHelper
 
     }
 
-    public double[] gastoIntervData(long dataInicial, long dataFinal){
+    public double[] gastoIntervData(long dataInicial, long dataFinal, int tipoNota){
 
         String selectQuery = "SELECT "+KEY_TP_CAD+", SUM("+KEY_PRECO+") FROM " + TABLE_PRODUTO + " WHERE "+KEY_TP_CAD+" IN(0,1) "
-                +" AND "+KEY_DT_HR_CAD+" BETWEEN "+dataInicial+" AND "+dataFinal
+                +" AND "+KEY_DT_HR_CAD+" BETWEEN "+dataInicial+" AND "+dataFinal + " AND "+KEY_TP_NT+ " = "+tipoNota
                 +" GROUP BY "+KEY_TP_CAD;
 
         double[] somaCredDeb = new double[2];

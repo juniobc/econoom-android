@@ -13,7 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.app.Activity;
+import android.widget.Toast;
 
+import com.econoom.Banco.NotaValorDB;
 import com.econoom.R;
 import com.econoom.entidade.NotaValor;
 
@@ -145,7 +147,24 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
         return formatter.format(calendar.getTime());
     }
 
+    public long getDateMillisegundos(String ano, String mes, String dia, boolean dataFinal){
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Integer.valueOf(ano), Integer.valueOf(mes) - 1, Integer.valueOf(dia));
+
+        if(dataFinal){
+
+            calendar.set(Integer.valueOf(ano), Integer.valueOf(mes)-1, calendar.getActualMaximum(calendar.DAY_OF_MONTH));
+
+        }
+
+        return calendar.getTimeInMillis();
+
+    }
+
     public void verificaMes(NotaValor object, View convertView){
+
 
         mes_cadastro = (LinearLayout) convertView.findViewById(R.id.mes_cadastro);
         nm_mes = (TextView) convertView.findViewById(R.id.nm_mes);
@@ -157,9 +176,35 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 
         if(posicaoAtual == 0 || !verificaMesAtual.equals(verificaMesAnt)){
 
+            long dataInicial;
+            long dataFinal;
+            double[] somaDebitoCredito;
+
+            dataInicial = getDateMillisegundos(getDate(object.getDataCadastro(), "yyy"), getDate(object.getDataCadastro(), "MM"), "01", false);
+
+            dataFinal = getDateMillisegundos(getDate(object.getDataCadastro(), "yyy"), getDate(object.getDataCadastro(), "MM"), "01", true);
+
             mes_cadastro.setVisibility(View.VISIBLE);
 
-            nm_mes.setText(verificaMesAtual);
+            //Log.d(TAG, );
+
+            Log.d(TAG, "verificaMes data Inicial: " +
+                            getDate(dataInicial,"yyyyy.MMMMM.dd")
+            );
+
+            Log.d(TAG, "verificaMes data final: " +
+               getDate(dataFinal,"yyyyy.MMMMM.dd")
+            );
+
+            NotaValorDB db = new NotaValorDB(context);
+
+            somaDebitoCredito = db.gastoIntervData(dataInicial, dataFinal, tipoNota);
+
+            Log.d(TAG, "verificaMes debito: " + somaDebitoCredito[0]);
+
+            Log.d(TAG, "verificaMes credito: " + somaDebitoCredito[1]);
+
+            nm_mes.setText(verificaMesAtual+" Gasto total: R$"+ String.format("%.2f", somaDebitoCredito[0]));
 
         }else
             mes_cadastro.setVisibility(View.GONE);
