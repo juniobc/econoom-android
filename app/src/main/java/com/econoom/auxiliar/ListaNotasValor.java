@@ -24,7 +24,7 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 
 	Context context;
 	private int resource;
-    List<NotaValor> data = null;
+    private List<NotaValor> data = null;
 	private int tipoNota;
 	private LinearLayout mes_cadastro;
 	private TextView nm_mes;
@@ -51,14 +51,6 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 			convertView = inflater.inflate(resource, parent,false);
 		}
 
-		//LinearLayout root = (LinearLayout) convertView.findViewById(R.id.row);
-		/*if((position % 2) == 0){
-			root.setBackgroundColor(convertView.getResources().getColor(R.color.white));
-		}	
-		else{
-			root.setBackgroundColor(convertView.getResources().getColor(R.color.white));
-		}*/
-
         LinearLayout root = (LinearLayout) convertView.findViewById(R.id.row);
 
 		NotaValor object = data.get(position);
@@ -77,25 +69,18 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 			mostraServicos(object, convertView);
 		}
 
-        Log.d(TAG, "getView getTpPagamento: " + object.getTpPagamento());
+        Log.d(TAG, "getView nome: " + object.getNome());
+        Log.d(TAG, "getView tp_pagamento: " + object.getTpPagamento());
 
-        if(object.getTpPagamento() == 0){
-
+        if(object.getTpPagamento() == 0)
             root.setBackgroundColor(ContextCompat.getColor(context, R.color.notaValorComprado));
-
-        }
-
-		/*TextView tv_numero = (TextView) convertView.findViewById(R.id.tv_numero);
-		tv_numero.setText(object.numero);
-		TextView tv_tempo = (TextView) convertView.findViewById(R.id.tv_tempo);
-		tv_tempo.setText(String.valueOf(object.cont));*/
+        else
+            root.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
 		
 		return convertView;
 	}
 
-	public void mostraProdutos(NotaValor object, View convertView){
-
-        Log.d(TAG, "mostraProdutos: " + object.getNome());
+	private void mostraProdutos(NotaValor object, View convertView){
 
         verificaMes(object, convertView);
 
@@ -117,9 +102,7 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 
 	}
 
-	public void mostraContas(NotaValor object, View convertView){
-
-        Log.d(TAG, "mostraContas: "+object.getNome());
+    private void mostraContas(NotaValor object, View convertView){
 
         verificaMes(object, convertView);
 
@@ -131,9 +114,7 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 
 	}
 
-	public void mostraServicos(NotaValor object, View convertView){
-
-        Log.d(TAG, "mostraServicos: "+object.getNome());
+    private void mostraServicos(NotaValor object, View convertView){
 
         verificaMes(object, convertView);
 
@@ -145,7 +126,7 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 
 	}
 
-    public static String getDate(long milliSeconds, String dateFormat)
+    private static String getDate(long milliSeconds, String dateFormat)
     {
         // Create a DateFormatter object for displaying date in specified format.
         SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
@@ -156,7 +137,7 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
         return formatter.format(calendar.getTime());
     }
 
-    public long getDateMillisegundos(String ano, String mes, String dia, boolean dataFinal){
+    private long getDateMillisegundos(String ano, String mes, String dia, boolean dataFinal){
 
         Calendar calendar = Calendar.getInstance();
 
@@ -172,7 +153,7 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 
     }
 
-    public void verificaMes(NotaValor object, View convertView){
+    private void verificaMes(NotaValor object, View convertView){
 
 
         mes_cadastro = (LinearLayout) convertView.findViewById(R.id.mes_cadastro);
@@ -195,23 +176,9 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 
             mes_cadastro.setVisibility(View.VISIBLE);
 
-            //Log.d(TAG, );
-
-            Log.d(TAG, "verificaMes data Inicial: " +
-                            getDate(dataInicial,"yyyyy.MMMMM.dd")
-            );
-
-            Log.d(TAG, "verificaMes data final: " +
-               getDate(dataFinal,"yyyyy.MMMMM.dd")
-            );
-
             NotaValorDB db = new NotaValorDB(context);
 
             somaDebitoCredito = db.gastoIntervData(dataInicial, dataFinal, tipoNota);
-
-            Log.d(TAG, "verificaMes debito: " + somaDebitoCredito[0]);
-
-            Log.d(TAG, "verificaMes credito: " + somaDebitoCredito[1]);
 
             nm_mes.setText(verificaMesAtual+" Gasto total: R$"+ String.format("%.2f", somaDebitoCredito[0]));
 

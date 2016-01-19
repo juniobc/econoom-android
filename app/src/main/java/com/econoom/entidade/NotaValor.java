@@ -1,6 +1,8 @@
 package com.econoom.entidade;
 
-public class NotaValor {
+import java.io.Serializable;
+
+public class NotaValor implements Serializable {
 	
 	protected int id;
 	protected String nome;

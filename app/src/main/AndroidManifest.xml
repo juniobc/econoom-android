@@ -64,6 +64,10 @@
 		<activity
 			android:label="@string/app_name"
 			android:name=".ListaNotas"/>
+
+        <activity
+            android:label="@string/app_name"
+            android:name=".AlteraCadastro"/>
         
     </application>
 

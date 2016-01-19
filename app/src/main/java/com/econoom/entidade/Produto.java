@@ -1,6 +1,8 @@
 package com.econoom.entidade;
 
-public class Produto extends NotaValor {
+import java.io.Serializable;
+
+public class Produto extends NotaValor  {
 
 	public Produto(int id, String nome, float valor, double latitude, double longitude, String dataValidade, int tpPagamento,
 	String tpUnidadeMedida, double codigoBarras, float qtUnMedida, int quantidade, long dataCadastro,String descNotaValor) {

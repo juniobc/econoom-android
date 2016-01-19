@@ -1,5 +1,6 @@
 package com.econoom;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.econoom.entidade.Produto;
 
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Toast;
 
 import java.util.List;
@@ -28,14 +30,7 @@ public class ListaProduto extends Fragment {
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        Log.d(TAG,"onCreateView");
-
         View view = inflater.inflate(R.layout.lista_produto, container, false);
-
-        Log.d(TAG, "onCreateView nome: " + buscaProduto().get(0).getNome());
-        Log.d(TAG, "onCreateView tp_pagamento: " + buscaProduto().get(0).getTpPagamento());
-        Log.d(TAG, "onCreateView nome: " + buscaProduto().get(7).getNome());
-        Log.d(TAG, "onCreateView tp_pagamento: " + buscaProduto().get(7).getTpPagamento());
 
         ListaNotasValor adapter = new ListaNotasValor(getActivity(),R.layout.list_lista_produto,buscaProduto(),0);
 
@@ -46,10 +41,35 @@ public class ListaProduto extends Fragment {
         listProdView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Object o = listProdView.getItemAtPosition(position);
-                Toast.makeText(getActivity(), o.toString(), Toast.LENGTH_SHORT).show();
+                Produto produto;
+
+                produto = (Produto) parent.getItemAtPosition(position);
+
+                if (!produto.getDescNotaValor().equals("")) {
+                    Toast.makeText(getActivity(), produto.getDescNotaValor(), Toast.LENGTH_LONG).show();
+                }
 
             }
+        });
+
+        listProdView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int pos, long id) {
+                // TODO Auto-generated method stub
+
+                Intent i = new Intent(getActivity(), AlteraCadastro.class);
+
+                Produto produto;
+
+                produto = (Produto) arg0.getItemAtPosition(pos);
+
+                i.putExtra(AlteraCadastro.OBJETO_PRODUTO, produto);
+                startActivityForResult(i, 0);
+
+                return true;
+            }
+
         });
 
         return view;

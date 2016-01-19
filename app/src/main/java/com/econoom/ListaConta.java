@@ -35,8 +35,13 @@ public class ListaConta extends Fragment {
         listProdView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Object o = listProdView.getItemAtPosition(position);
-                Toast.makeText(getActivity(), o.toString(), Toast.LENGTH_SHORT).show();
+                Conta conta;
+
+                conta = (Conta) parent.getItemAtPosition(position);
+
+                if(!conta.getDescNotaValor().equals("")){
+                    Toast.makeText(getActivity(), conta.getDescNotaValor(), Toast.LENGTH_LONG).show();
+                }
 
             }
         });
