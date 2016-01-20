@@ -7,6 +7,12 @@
 	    android:layout_height="wrap_content"
 	    android:orientation="vertical"
 		android:gravity="center">
+
+        <EditText
+            android:id="@+id/cd_nota_valor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
 		
 	    <Spinner 
 	        android:id="@+id/tp_cad_prod"
@@ -90,6 +96,13 @@
 			android:layout_height="wrap_content"
 			android:text="@string/btn_cad"
 			android:onClick="cadastrar"/>
+
+        <Button
+            android:id="@+id/btn_altera_prod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_altera"
+            android:onClick="alterar"/>
 	    
 	</LinearLayout>
 

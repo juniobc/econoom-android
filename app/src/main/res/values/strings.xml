@@ -3,6 +3,7 @@
     <string name="app_name">econoom-android</string>
 	<string name="btn_cad_prod_tela">Cadastro</string>
 	<string name="btn_cad">Cadastrar</string>
+    <string name="btn_altera">Alterar</string>
 	<string name="btn_listar">Listar</string>
 	<string name="nm_cad">Nome</string>
 	<string name="desc_nota_valor">Descrição</string>
@@ -23,7 +24,7 @@
 		<item>M</item>
 		<item>M²</item>
 		<item>POL</item>
-		<item>Un</item>
+		<item>UN</item>
 
 	</string-array>
 	<string name="qt_un_prod">Quantidade da Unidade</string>

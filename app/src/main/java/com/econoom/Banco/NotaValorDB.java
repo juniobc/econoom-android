@@ -323,40 +323,55 @@ public class NotaValorDB extends SQLiteOpenHelper
         return servicos;
     }
 
+    public int updateNotaValor(NotaValor notaValor){
 
-    /*public int updateProduto(NotaServicoDB produto) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int tpCad;
 
         ContentValues values = new ContentValues();
-        values.put(KEY_NM_PROD, produto.getNome());
-        values.put(KEY_TP_UN_PROD, produto.getTpUnidade());
-        values.put(KEY_QT_TP_UN, produto.getQtUnidade());
-        values.put(KEY_PRECO, produto.getPreco());
-        values.put(KEY_CD_BARRA, produto.getCdBarra());
-        values.put(KEY_QUANT, produto.getQuantidade());
-        values.put(KEY_LAT, produto.getNrLat());
-        values.put(KEY_LONG, produto.getNrLong());
-
-        if(!produto.getTpCad()){
-
-        	tpCad = 0;
-
-        }else{
-
-        	tpCad = 1;
-
-        }
-
-        values.put(KEY_TP_CAD, tpCad);
-
+        values.put(KEY_NM_PROD, notaValor.getNome());
+        values.put(KEY_PRECO, notaValor.getValor());
+        values.put(KEY_TP_NT, notaValor.getTpCad());
+        if(notaValor.getLatitude() != 0)
+            values.put(KEY_LAT, notaValor.getLatitude());
+        else
+            values.putNull(KEY_LAT);
+        if(notaValor.getLongitude() != 0)
+            values.put(KEY_LONG, notaValor.getLongitude());
+        else
+            values.putNull(KEY_LONG);
+        values.put(KEY_TP_CAD, notaValor.getTpPagamento());
+        if(!notaValor.getTpUnidadeMedida().equals(""))
+            values.put(KEY_TP_UN_PROD, notaValor.getTpUnidadeMedida());
+        else
+            values.putNull(KEY_TP_UN_PROD);
+        if(notaValor.getCodigoBarras() != 0)
+            values.put(KEY_CD_BARRA, notaValor.getCodigoBarras());
+        else
+            values.putNull(KEY_CD_BARRA);
+        if(notaValor.getQtUnMedida() != 0)
+            values.put(KEY_QT_TP_UN, notaValor.getQtUnMedida());
+        else
+            values.putNull(KEY_QT_TP_UN);
+        if(notaValor.getQuantidade() != 0)
+            values.put(KEY_QUANT, notaValor.getQuantidade());
+        else
+            values.putNull(KEY_QUANT);
+        if(notaValor.getQtUnMedida() != 0)
+            values.put(KEY_QT_TP_UN, notaValor.getQtUnMedida());
+        else
+            values.putNull(KEY_QT_TP_UN);
+        if(!notaValor.getDescNotaValor().equals(""))
+            values.put(KEY_DESC_NT, notaValor.getDescNotaValor());
+        else
+            values.putNull(KEY_DESC_NT);
 
         return db.update(TABLE_PRODUTO, values, KEY_ID + " = ?",
-						 new String[] { String.valueOf(produto.getNome()) });
+                new String[] { String.valueOf(notaValor.getId()) });
+
     }
 
 
-    public void deleteProduto(int cd_produto) {
+    /*public void deleteProduto(int cd_produto) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_PRODUTO, KEY_ID + " = ?",
 				  new String[] { String.valueOf(cd_produto)});

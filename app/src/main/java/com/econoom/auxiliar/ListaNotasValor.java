@@ -1,5 +1,6 @@
 package com.econoom.auxiliar;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -34,6 +35,7 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
     private int posicaoAnt;
     private int posicaoAtual;
     private NotaValor objectAnt;
+    private NumberFormat nf = NumberFormat.getCurrencyInstance();
 
 	public ListaNotasValor(Context context, int resource, List<NotaValor> object, int tipoNota) {
         super(context, resource, object);
@@ -98,7 +100,7 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 		nm_produto.setText(object.getNome() + " - " +
 				qtUnidadeMedida + " " + object.getTpUnidadeMedida());
 		qt_produto.setText(String.format("%d", object.getQuantidade()));
-		vl_produto.setText(String.format("%.2f", object.getValor()));
+        vl_produto.setText(nf.format(object.getValor()));
 
 	}
 
@@ -110,7 +112,7 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 		TextView vl_conta = (TextView) convertView.findViewById(R.id.vl_conta);
 
 		nm_conta.setText(object.getNome());
-		vl_conta.setText(String.format("%.2f", object.getValor()));
+		vl_conta.setText(nf.format(object.getValor()));
 
 	}
 
@@ -122,7 +124,7 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 		TextView vl_servico = (TextView) convertView.findViewById(R.id.vl_conta);
 
 		nm_servico.setText(object.getNome());
-		vl_servico.setText(String.format("%.2f", object.getValor()));
+		vl_servico.setText(nf.format(object.getValor()));
 
 	}
 
@@ -180,7 +182,7 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 
             somaDebitoCredito = db.gastoIntervData(dataInicial, dataFinal, tipoNota);
 
-            nm_mes.setText(verificaMesAtual+" Gasto total: R$"+ String.format("%.2f", somaDebitoCredito[0]));
+            nm_mes.setText(verificaMesAtual+" Gasto total: "+ nf.format(somaDebitoCredito[0]));
 
         }else
             mes_cadastro.setVisibility(View.GONE);
