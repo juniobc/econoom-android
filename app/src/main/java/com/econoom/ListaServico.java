@@ -1,5 +1,6 @@
 package com.econoom;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -44,6 +45,26 @@ public class ListaServico extends Fragment {
                 }
 
             }
+        });
+
+        listProdView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int pos, long id) {
+                // TODO Auto-generated method stub
+
+                Intent i = new Intent(getActivity(), CadastroProduto.class);
+
+                Servico servico;
+
+                servico = (Servico) arg0.getItemAtPosition(pos);
+
+                i.putExtra(CadastroProduto.OBJETO_SERVICO, servico);
+                startActivityForResult(i, 0);
+
+                return true;
+            }
+
         });
 
         return view;

@@ -323,14 +323,14 @@ public class NotaValorDB extends SQLiteOpenHelper
         return servicos;
     }
 
-    public int updateNotaValor(NotaValor notaValor){
+    public int updateNotaValor(NotaValor notaValor, int tpNotaValor){
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_NM_PROD, notaValor.getNome());
         values.put(KEY_PRECO, notaValor.getValor());
-        values.put(KEY_TP_NT, notaValor.getTpCad());
+        values.put(KEY_TP_NT, tpNotaValor);
         if(notaValor.getLatitude() != 0)
             values.put(KEY_LAT, notaValor.getLatitude());
         else
@@ -340,8 +340,9 @@ public class NotaValorDB extends SQLiteOpenHelper
         else
             values.putNull(KEY_LONG);
         values.put(KEY_TP_CAD, notaValor.getTpPagamento());
-        if(!notaValor.getTpUnidadeMedida().equals(""))
-            values.put(KEY_TP_UN_PROD, notaValor.getTpUnidadeMedida());
+        if(notaValor.getTpUnidadeMedida() != null)
+            if(!notaValor.getTpUnidadeMedida().equals(""))
+                values.put(KEY_TP_UN_PROD, notaValor.getTpUnidadeMedida());
         else
             values.putNull(KEY_TP_UN_PROD);
         if(notaValor.getCodigoBarras() != 0)
@@ -360,8 +361,9 @@ public class NotaValorDB extends SQLiteOpenHelper
             values.put(KEY_QT_TP_UN, notaValor.getQtUnMedida());
         else
             values.putNull(KEY_QT_TP_UN);
-        if(!notaValor.getDescNotaValor().equals(""))
-            values.put(KEY_DESC_NT, notaValor.getDescNotaValor());
+        if(notaValor.getDescNotaValor() != null)
+            if(!notaValor.getDescNotaValor().equals(""))
+                values.put(KEY_DESC_NT, notaValor.getDescNotaValor());
         else
             values.putNull(KEY_DESC_NT);
 

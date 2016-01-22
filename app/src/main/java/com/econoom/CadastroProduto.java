@@ -295,7 +295,6 @@ public class CadastroProduto extends Activity{
             vl_prod.setText(nf.format(notaValor.getValor()).replace("R$", ""));
             dt_validade.setText(notaValor.getDataValidade());
             tp_pag_prod.setSelection(notaValor.getTpPagamento());
-            cd_nota_valor.setText(notaValor.getId());
 
         }else if(intent.hasExtra(OBJETO_SERVICO)){
 
@@ -312,7 +311,6 @@ public class CadastroProduto extends Activity{
                     + String.format("%f", notaValor.getLongitude()));
             dt_validade.setText(notaValor.getDataValidade());
             tp_pag_prod.setSelection(notaValor.getTpPagamento());
-            cd_nota_valor.setText(notaValor.getId());
 
         }
 
@@ -376,7 +374,7 @@ public class CadastroProduto extends Activity{
 
                 conta = new Conta(notaValor.getId(), nome, valor, dataValidade, tpPagamento, 0);
 
-                db.updateNotaValor(conta);
+                db.updateNotaValor(conta, 1);
 
                 Toast.makeText(this, "Conta alterada com sucesso!", Toast.LENGTH_LONG).show();
 
@@ -391,7 +389,7 @@ public class CadastroProduto extends Activity{
 
                 servico = new Servico(notaValor.getId(), nome, valor, latitude, longitude, dataValidade, tpPagamento, 0, descNotaValor);
 
-                db.updateNotaValor(servico);
+                db.updateNotaValor(servico, 2);
 
                 Toast.makeText(this, "Servico alterado com sucesso!", Toast.LENGTH_LONG).show();
 
@@ -421,7 +419,7 @@ public class CadastroProduto extends Activity{
                 produto = new Produto(notaValor.getId(), nome,valor,latitude,longitude,dataValidade,tpPagamento,
                         tpUnidadeMedida,codigoBarras,qtUnMedida,quantidade, 0, descNotaValor);
 
-                db.updateNotaValor(produto);
+                db.updateNotaValor(produto, 0);
 
                 Toast.makeText(this, "Produto alterado com sucesso!", Toast.LENGTH_LONG).show();
 

@@ -1,5 +1,6 @@
 package com.econoom;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import com.econoom.Banco.NotaValorDB;
 import com.econoom.auxiliar.ListaNotasValor;
 import com.econoom.entidade.Conta;
 import com.econoom.entidade.NotaValor;
+import com.econoom.entidade.Produto;
 
 import java.util.List;
 
@@ -39,11 +41,31 @@ public class ListaConta extends Fragment {
 
                 conta = (Conta) parent.getItemAtPosition(position);
 
-                if(!conta.getDescNotaValor().equals("")){
+                if (!conta.getDescNotaValor().equals("")) {
                     Toast.makeText(getActivity(), conta.getDescNotaValor(), Toast.LENGTH_LONG).show();
                 }
 
             }
+        });
+
+        listProdView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int pos, long id) {
+                // TODO Auto-generated method stub
+
+                Intent i = new Intent(getActivity(), CadastroProduto.class);
+
+                Conta conta;
+
+                conta = (Conta) arg0.getItemAtPosition(pos);
+
+                i.putExtra(CadastroProduto.OBJETO_CONTA, conta);
+                startActivityForResult(i, 0);
+
+                return true;
+            }
+
         });
 
         return view;

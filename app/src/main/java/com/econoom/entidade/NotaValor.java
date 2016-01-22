@@ -24,7 +24,7 @@ public class NotaValor implements Serializable {
 			String tpUnidadeMedida, double codigoBarras, float qtUnMedida, int quantidade, long dataCadastro, String descNotaValor){
 		
 		this.id = id;
-		this.nome = nome;
+		this.nome = nome.toUpperCase(Locale.getDefault());
 		this.valor = valor;
 		this.dataValidade = dataValidade;
 		this.tpPagamento = tpPagamento;		
