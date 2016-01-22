@@ -13,6 +13,7 @@ import com.econoom.Banco.NotaValorDB;
 import com.econoom.auxiliar.ListaNotasValor;
 import com.econoom.entidade.Conta;
 import com.econoom.entidade.NotaValor;
+import com.econoom.entidade.Produto;
 import com.econoom.entidade.Servico;
 
 import java.util.List;
@@ -34,8 +35,13 @@ public class ListaServico extends Fragment {
         listProdView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Object o = listProdView.getItemAtPosition(position);
-                Toast.makeText(getActivity(), o.toString(), Toast.LENGTH_SHORT).show();
+                Servico servico;
+
+                servico = (Servico) parent.getItemAtPosition(position);
+
+                if (servico.getDescNotaValor() != null) {
+                    Toast.makeText(getActivity(), servico.getDescNotaValor(), Toast.LENGTH_LONG).show();
+                }
 
             }
         });

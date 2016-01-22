@@ -474,7 +474,7 @@ public class CadastroProduto extends Activity{
 			
 			if(tp_cad_prod.getSelectedItemPosition() == 2){
 
-				descNotaValor = desc_nota_valor.getText().toString();
+				descNotaValor = desc_nota_valor.getText().toString().toUpperCase(Locale.getDefault());
 				
 				latitude = this.latitude;
 				longitude = this.longitude;
@@ -489,7 +489,7 @@ public class CadastroProduto extends Activity{
 			
 			if(tp_cad_prod.getSelectedItemPosition() == 0){
 
-				descNotaValor = desc_nota_valor.getText().toString();
+				descNotaValor = desc_nota_valor.getText().toString().toUpperCase(Locale.getDefault());
 				
 				latitude = this.latitude;
 				longitude = this.longitude;

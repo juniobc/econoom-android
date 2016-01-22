@@ -1,6 +1,7 @@
 package com.econoom.entidade;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 public class NotaValor implements Serializable {
 	
@@ -34,7 +35,11 @@ public class NotaValor implements Serializable {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.dataCadastro = dataCadastro;
-		this.descNotaValor = descNotaValor;
+		if(descNotaValor != null)
+			if(descNotaValor.equals(""))
+				this.descNotaValor = null;
+			else
+				this.descNotaValor = descNotaValor.toUpperCase(Locale.getDefault());
 		
 	}
 	
@@ -49,7 +54,11 @@ public class NotaValor implements Serializable {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.dataCadastro = dataCadastro;
-		this.descNotaValor = descNotaValor;
+		if(descNotaValor != null)
+			if(descNotaValor.equals(""))
+				this.descNotaValor = null;
+			else
+				this.descNotaValor = descNotaValor.toUpperCase(Locale.getDefault());
 		
 	}
 	

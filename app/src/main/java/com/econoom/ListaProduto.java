@@ -62,7 +62,7 @@ public class ListaProduto extends Fragment {
 
                 produto = (Produto) parent.getItemAtPosition(position);
 
-                if (!produto.getDescNotaValor().equals("")) {
+                if (produto.getDescNotaValor() != null) {
                     Toast.makeText(getActivity(), produto.getDescNotaValor(), Toast.LENGTH_LONG).show();
                 }
 
