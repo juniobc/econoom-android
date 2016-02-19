@@ -71,9 +71,6 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 			mostraServicos(object, convertView);
 		}
 
-        Log.d(TAG, "getView nome: " + object.getNome());
-        Log.d(TAG, "getView tp_pagamento: " + object.getTpPagamento());
-
         if(object.getTpPagamento() == 0)
             root.setBackgroundColor(ContextCompat.getColor(context, R.color.notaValorComprado));
         else
@@ -157,6 +154,8 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
 
     private void verificaMes(NotaValor object, View convertView){
 
+        //Log.d(TAG,"verificaMes Object");
+
 
         mes_cadastro = (LinearLayout) convertView.findViewById(R.id.mes_cadastro);
         nm_mes = (TextView) convertView.findViewById(R.id.nm_mes);
@@ -166,7 +165,8 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
         verificaMesAtual = getDate(object.getDataCadastro(), "MMMM");
         verificaMesAnt = getDate(objectAnt.getDataCadastro(), "MMMM");
 
-        if(posicaoAtual == 0 || !verificaMesAtual.equals(verificaMesAnt)){
+        //if(posicaoAtual == 0 || !verificaMesAtual.equals(verificaMesAnt)){
+        if(!verificaMesAtual.equals(verificaMesAnt)){
 
             long dataInicial;
             long dataFinal;
