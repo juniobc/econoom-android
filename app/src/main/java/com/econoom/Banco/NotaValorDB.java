@@ -10,6 +10,10 @@ import android.util.Log;
 
 import com.econoom.entidade.*;
 
+/**
+ * sebastiao junio 13/03/2016.
+ */
+
 public class NotaValorDB extends SQLiteOpenHelper
 {
 	

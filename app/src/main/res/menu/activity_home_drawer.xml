@@ -6,14 +6,23 @@
             android:id="@+id/reg_ent"
             android:icon="@android:drawable/ic_input_add"
             android:title="@string/reg_ent" />
+
+        <item
+            android:id="@+id/gern_gpr_mat"
+            android:icon="@android:drawable/ic_input_add"
+            android:title="@string/gern_gpr_mat" >
+
+            <item
+                android:id="@+id/cad_gpr_mat"
+                android:icon="@android:drawable/ic_input_add"
+                android:title="@string/cad_gpr_mat" />
+
+        </item>
+
         <item
             android:id="@+id/lista_ent"
             android:icon="@drawable/list"
             android:title="@string/lista_ent" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"

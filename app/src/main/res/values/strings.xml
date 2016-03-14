@@ -9,6 +9,12 @@
     <string name="desc_nota_valor">Descrição</string>
     <string name="reg_ent">Registro de Entrada</string>
     <string name="lista_ent">Lista Entrada</string>
+    <string name="cad_gpr_mat">Cadastra Grupo Material</string>
+    <string name="descricao">Descrição</string>
+    <string name="selec_img">Selecione uma imagem</string>
+    <string name="gern_gpr_mat">Gerencia Grupo Material</string>
+
+
     <string-array name="tp_cad_prod">
 
         <item>Produto</item>
@@ -43,7 +49,7 @@
 
     <string name="btn_gravar">Gravar</string>
     <string name="txt_gasto_total">Gasto total:</string>
-    <string name="title_activity_home">Home</string>
+    <string name="title_activity_home">Econoom</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
