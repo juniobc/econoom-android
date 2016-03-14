@@ -1,45 +1,53 @@
 <resources>
 
     <string name="app_name">econoom-android</string>
-	<string name="btn_cad_prod_tela">Cadastro</string>
-	<string name="btn_cad">Cadastrar</string>
+    <string name="btn_cad_prod_tela">Cadastro</string>
+    <string name="btn_cad">Cadastrar</string>
     <string name="btn_altera">Alterar</string>
-	<string name="btn_listar">Listar</string>
-	<string name="nm_cad">Nome</string>
-	<string name="desc_nota_valor">Descrição</string>
-	<string-array name="tp_cad_prod">
-	    
-	    <item>Produto</item>
-	    <item>Conta</item>
-	    <item>Serviço</item>
-	    
-	</string-array>
-	
-	<string-array name="un_med_prod">
+    <string name="btn_listar">Listar</string>
+    <string name="nm_cad">Nome</string>
+    <string name="desc_nota_valor">Descrição</string>
+    <string name="reg_ent">Registro de Entrada</string>
+    <string name="lista_ent">Lista Entrada</string>
+    <string-array name="tp_cad_prod">
 
-	    <item>Ml</item>
-	    <item>L</item>
-	    <item>G</item>
-		<item>KG</item>
-		<item>M</item>
-		<item>M²</item>
-		<item>POL</item>
-		<item>UN</item>
+        <item>Produto</item>
+        <item>Conta</item>
+        <item>Serviço</item>
 
-	</string-array>
-	<string name="qt_un_prod">Quantidade da Unidade</string>
-	<string name="qt_prod">Quantidade Total</string>
-	<string name="vl_prod">Valor Total</string>
-	<string name="cd_barra_prod">Codigo de Barras</string>	
-	<string name="end_prod">Endereço</string>
-	<string name="dt_validade">Data de validade</string>
-	<string-array name="tp_pag_prod">
-	    <item>Debito</item>
-	    <item>Credito</item>
-	    <item>Cadastro</item>
-	</string-array>
-	
-	<string name="btn_gravar">Gravar</string>
-	<string name="txt_gasto_total">Gasto total:</string>
+    </string-array>
+
+    <string-array name="un_med_prod">
+
+        <item>Ml</item>
+        <item>L</item>
+        <item>G</item>
+        <item>KG</item>
+        <item>M</item>
+        <item>M²</item>
+        <item>POL</item>
+        <item>UN</item>
+
+    </string-array>
+    <string name="qt_un_prod">Quantidade da Unidade</string>
+    <string name="qt_prod">Quantidade Total</string>
+    <string name="vl_prod">Valor Total</string>
+    <string name="cd_barra_prod">Codigo de Barras</string>
+    <string name="end_prod">Endereço</string>
+    <string name="dt_validade">Data de validade</string>
+    <string-array name="tp_pag_prod">
+        <item>Debito</item>
+        <item>Credito</item>
+        <item>Cadastro</item>
+    </string-array>
+
+    <string name="btn_gravar">Gravar</string>
+    <string name="txt_gasto_total">Gasto total:</string>
+    <string name="title_activity_home">Home</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 
 </resources>

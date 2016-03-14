@@ -165,8 +165,8 @@ public class ListaNotasValor extends ArrayAdapter<NotaValor> {
         verificaMesAtual = getDate(object.getDataCadastro(), "MMMM");
         verificaMesAnt = getDate(objectAnt.getDataCadastro(), "MMMM");
 
-        //if(posicaoAtual == 0 || !verificaMesAtual.equals(verificaMesAnt)){
-        if(!verificaMesAtual.equals(verificaMesAnt)){
+        if(posicaoAtual == 0 || !verificaMesAtual.equals(verificaMesAnt)){
+        //if(!verificaMesAtual.equals(verificaMesAnt)){
 
             long dataInicial;
             long dataFinal;
