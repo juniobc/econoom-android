@@ -7,16 +7,15 @@
             android:icon="@android:drawable/ic_input_add"
             android:title="@string/reg_ent" />
 
-        <item
-            android:id="@+id/gern_gpr_mat"
-            android:icon="@android:drawable/ic_input_add"
-            android:title="@string/gern_gpr_mat" >
-
-            <item
-                android:id="@+id/cad_gpr_mat"
-                android:icon="@android:drawable/ic_input_add"
-                android:title="@string/cad_gpr_mat" />
-
+        <item android:title="@string/gern_gpr_mat"
+              android:layout_gravity="bottom"
+            >
+            <menu>
+                <item
+                    android:id="@+id/cad_gpr_mat"
+                    android:icon="@android:drawable/ic_input_add"
+                    android:title="@string/cad_gpr_mat" />
+            </menu>
         </item>
 
         <item

@@ -15,13 +15,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.econoom.auxiliar.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
+import android.widget.Toast;
+
+import com.econoom.auxiliar.ExpandedMenuModel;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Fragment fragment = null;
     private FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+    ExpandableListAdapter mMenuAdapter;
+    ExpandableListView expandableList;
+    DrawerLayout drawer;
+    List<ExpandedMenuModel> listDataHeader;
+    HashMap<ExpandedMenuModel, List<String>> listDataChild;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,20 +53,112 @@ public class Home extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        expandableList= (ExpandableListView) findViewById(R.id.navigationmenu);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        criaMenu();
+        mMenuAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild, expandableList);
+
+        // setting list adapter
+        expandableList.setAdapter(mMenuAdapter);
+        expandableList.setDivider(null);
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
-        GprMatFragment gprFragment = new GprMatFragment();
+        /*GprMatFragment gprFragment = new GprMatFragment();
         ft.add(R.id.cadastra_gpr, gprFragment);
-        ft.commit();
+        ft.commit();*/
+
+        expandableList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+
+                if(groupPosition == 0){
+
+                    Intent i = new Intent(Home.this, CadastroProduto.class);
+                    startActivity(i);
+
+                }
+
+                if(groupPosition == 2){
+
+                    Intent i = new Intent(Home.this, ListaNotas.class);
+                    startActivity(i);
+
+                }
+
+                return false;
+            }
+        });
+
+        expandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+
+                String title = null;
+
+                if(groupPosition == 1 && childPosition == 0){
+                    fragment = new GprMatFragment();
+                    title = "Cadastra Grupo";
+                }
+
+                if (fragment != null) {
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.cadastra_gpr, fragment);
+                    ft.commit();
+                }
+
+                if (getSupportActionBar() != null) {
+                    getSupportActionBar().setTitle(title);
+                }
+
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+
+                return false;
+            }
+        });
+    }
+
+    public void criaMenu(){
+
+        listDataHeader = new ArrayList<ExpandedMenuModel>();
+        listDataChild = new HashMap<ExpandedMenuModel, List<String>>();
+
+        ExpandedMenuModel item1 = new ExpandedMenuModel();
+        item1.setIconName(getResources().getString(R.string.reg_ent));
+        item1.setIconImg(R.drawable.add);
+        // Adding data header
+        listDataHeader.add(item1);
+
+        ExpandedMenuModel item2 = new ExpandedMenuModel();
+        item2.setIconName(getResources().getString(R.string.gern_gpr_mat));
+        item2.setIconImg(R.drawable.config);
+        listDataHeader.add(item2);
+
+        ExpandedMenuModel item3 = new ExpandedMenuModel();
+        item3.setIconName(getResources().getString(R.string.lista_ent));
+        item3.setIconImg(R.drawable.add);
+        listDataHeader.add(item3);
+
+        // Adding child data
+        /*List<String> heading1 = new ArrayList<String>();
+        heading1.add("Submenu of item 1");*/
+
+        List<String> heading2 = new ArrayList<String>();
+        heading2.add(getResources().getString(R.string.cad_gpr_mat));
+        heading2.add(getResources().getString(R.string.list_gpr_mat));
+
+        //listDataChild.put(listDataHeader.get(0), heading1);// Header, Child data
+        listDataChild.put(listDataHeader.get(1), heading2);
+
     }
 
     @Override
@@ -90,40 +196,6 @@ public class Home extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        String title = null;
-
-        if (id == R.id.reg_ent) {
-            Intent i = new Intent(Home.this, CadastroProduto.class);
-            startActivity(i);
-        } else if (id == R.id.lista_ent) {
-            Intent i = new Intent(Home.this, ListaNotas.class);
-            startActivity(i);
-        } else if (id == R.id.cad_gpr_mat) {
-            fragment = new GprMatFragment();
-            title = "Cadastra Grupo";
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        if (fragment != null) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.cadastra_gpr, fragment);
-            ft.commit();
-        }
-
-        // set the toolbar title
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(title);
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 }
