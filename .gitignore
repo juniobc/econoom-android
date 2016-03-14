@@ -4,3 +4,9 @@ app/build/
 build
 *.iml
 local.properties
+gradlew
+gradlew.bat
+gradle
+build.gradle
+settings.gradle
+gradle.properties
