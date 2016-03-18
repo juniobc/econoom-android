@@ -27,7 +27,7 @@ public class MaterialDB {
 
     protected static final String CREATE_MATERIAL_TABLE = "CREATE TABLE " + TABLE_MATERIAL + "("
             + CD_MAT + " INTEGER," + CD_CATL + " INTEGER," + CD_UN_MEDIDA + " INTEGER,"
-            + DS_MAT + " TEXT," + DT_CAD + ", TEXT CONSTRAINT "+PK_MAT+" primary key("+CD_MAT+","+CD_CATL+", "+CD_UN_MEDIDA+") )";
+            + DS_MAT + " TEXT," + DT_CAD + ", PRIMARY KEY ("+CD_MAT+","+CD_CATL+", "+CD_UN_MEDIDA+") )";
 
     public MaterialDB(Context contexto){
 

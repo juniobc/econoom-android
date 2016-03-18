@@ -21,13 +21,14 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.econoom.auxiliar.ExpandedMenuModel;
+import com.econoom.entidade.GrupoMat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class Home extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ListGprMatFragment.OnGprMatSelectedListener {
 
     private Fragment fragment = null;
     private FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -44,14 +45,14 @@ public class Home extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         expandableList= (ExpandableListView) findViewById(R.id.navigationmenu);
@@ -80,14 +81,14 @@ public class Home extends AppCompatActivity
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
 
-                if(groupPosition == 0){
+                if (groupPosition == 0) {
 
                     Intent i = new Intent(Home.this, CadastroProduto.class);
                     startActivity(i);
 
                 }
 
-                if(groupPosition == 2){
+                if (groupPosition == 2) {
 
                     Intent i = new Intent(Home.this, ListaNotas.class);
                     startActivity(i);
@@ -104,9 +105,16 @@ public class Home extends AppCompatActivity
 
                 String title = null;
 
-                if(groupPosition == 1 && childPosition == 0){
+                fragment = null;
+
+                if (groupPosition == 1 && childPosition == 0) {
                     fragment = new GprMatFragment();
                     title = "Cadastra Grupo";
+                }
+
+                if (groupPosition == 1 && childPosition == 1) {
+                    fragment = new ListGprMatFragment();
+                    title = "Lista Grupo Material";
                 }
 
                 if (fragment != null) {
@@ -197,5 +205,28 @@ public class Home extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         return true;
+    }
+
+    @Override
+    public void onGprMatSelected(GrupoMat gprMat){
+
+        String title = "Altera Grupo";
+
+        Bundle bundle=new Bundle();
+        bundle.putParcelable(GprMatFragment.OBJETO_GPRMAT, gprMat);
+        //set Fragmentclass Arguments
+        fragment = new GprMatFragment();
+        fragment.setArguments(bundle);
+
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.cadastra_gpr, fragment);
+            ft.commit();
+        }
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }
+
     }
 }

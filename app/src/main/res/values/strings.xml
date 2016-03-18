@@ -1,6 +1,7 @@
 <resources>
 
     <string name="app_name">econoom-android</string>
+    <string name="btn_deleta">Deletar</string>
     <string name="btn_cad_prod_tela">Cadastro</string>
     <string name="btn_cad">Cadastrar</string>
     <string name="btn_altera">Alterar</string>
@@ -8,6 +9,7 @@
     <string name="nm_cad">Nome</string>
     <string name="desc_nota_valor">Descrição</string>
     <string name="reg_ent">Registro de Entrada</string>
+    <string name="cd_gpr_mat">Código</string>
     <string name="lista_ent">Lista Entrada</string>
     <string name="cad_gpr_mat">Cadastra Grupo Material</string>
     <string name="list_gpr_mat">Lista Grupo Material</string>

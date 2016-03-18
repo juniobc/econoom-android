@@ -14,7 +14,7 @@ public class BancoHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "BancoHelper";
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 7;
 
     private static final String DATABASE_NAME = "econoom";
 
@@ -34,9 +34,8 @@ public class BancoHelper extends SQLiteOpenHelper {
 
         Log.d(TAG,"onUpgrade - oldVersion: "+oldVersion);
 
-        if (oldVersion < 3) {
-            db.execSQL(GrupoMatDB.CREATE_GRP_MAT_TABLE);
-        }
+        db.execSQL(GrupoMatDB.DROP_GRP_MAT_TABLE);
+        db.execSQL(GrupoMatDB.CREATE_GRP_MAT_TABLE);
 
     }
 }

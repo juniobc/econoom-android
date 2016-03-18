@@ -7,21 +7,37 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * Created by sebastiao on 14/03/2016.
- */
+import com.econoom.entidade.GrupoMat;
+
+import java.io.ByteArrayOutputStream;
+
+
 public class GprMatFragment extends android.support.v4.app.Fragment {
+
+    private static final String TAG = "GprMatFragment";
 
     private View view;
     private Button imgGpr;
     private ImageView imgFoto;
+    private Button btnCad;
+    private Button btnAlt;
+    private EditText dsGprMat;
+    private GrupoMat gprMat;
+    private TextView cdGprMat;
+
+    public static final String OBJETO_GPRMAT = "com.econoom.GprMatFragment.gprmat";
 
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 12;
 
@@ -36,14 +52,103 @@ public class GprMatFragment extends android.support.v4.app.Fragment {
 
         }
 
+        btnCad = (Button) view.findViewById(R.id.btn_cad);
+        btnAlt = (Button) view.findViewById(R.id.btn_alt);
         imgGpr = (Button) view.findViewById(R.id.img_gpr);
         imgFoto = (ImageView) view.findViewById(R.id.img_foto);
+        dsGprMat = (EditText) view.findViewById(R.id.ds_gpr_mat);
+        cdGprMat = (TextView) view.findViewById(R.id.cd_gpr_mat);
+
+        savedInstanceState = this.getArguments();
+
+        if(savedInstanceState!=null){
+
+            gprMat = savedInstanceState.getParcelable(OBJETO_GPRMAT);
+
+            btnCad.setVisibility(View.GONE);
+            btnAlt.setVisibility(View.VISIBLE);
+
+            dsGprMat.setText(gprMat.getDsGrupo());
+
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inDither = false;
+            options.inTempStorage = new byte[1024 *32];
+
+            Bitmap bm = BitmapFactory.decodeByteArray(gprMat.getImgGprMat(), 0, gprMat.getImgGprMat().length, options);
+            imgFoto.setImageBitmap(bm);
+
+            cdGprMat.setText(String.valueOf(gprMat.getCdGprMat()));
+
+        }
 
         imgGpr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                 startActivityForResult(i, 12);
+            }
+        });
+
+        btnCad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                imgFoto.setDrawingCacheEnabled(true);
+
+                imgFoto.buildDrawingCache();
+
+                Bitmap bm = imgFoto.getDrawingCache();
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] byteArray = stream.toByteArray();
+
+                if(dsGprMat.getText().toString().equals("")){
+
+                    Toast.makeText(getContext(), "Informe uma descrição!", Toast.LENGTH_SHORT).show();
+
+                }else{
+
+                    GrupoMat gpr = new GrupoMat(dsGprMat.getText().toString(), byteArray);
+                    gpr.cadastro(getContext());
+
+                    Toast.makeText(getContext(), "Grupo cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+
+                    limpaCampos();
+                }
+            }
+        });
+
+        btnAlt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                imgFoto.setDrawingCacheEnabled(true);
+
+                imgFoto.buildDrawingCache();
+
+                Bitmap bm = imgFoto.getDrawingCache();
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] byteArray = stream.toByteArray();
+
+                if(dsGprMat.getText().toString().equals("")){
+
+                    Toast.makeText(getContext(), "Informe uma descrição!", Toast.LENGTH_SHORT).show();
+
+                }else{
+
+                    GrupoMat gpr = new GrupoMat(Integer.parseInt(cdGprMat.getText().toString()),dsGprMat.getText().toString(), byteArray);
+                    gpr.alteraGprMat(getContext());
+
+                    Toast.makeText(getContext(), "Grupo alterado com sucesso!", Toast.LENGTH_SHORT).show();
+
+                    Fragment fragment = new ListGprMatFragment();
+                    FragmentTransaction ft  = getFragmentManager().beginTransaction();
+                    ft.replace(R.id.cadastra_gpr, fragment);
+                    ft.addToBackStack(null);
+                    ft.commit();
+
+                }
             }
         });
 
@@ -80,6 +185,14 @@ public class GprMatFragment extends android.support.v4.app.Fragment {
                         data.getData(), Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    public void limpaCampos(){
+
+        imgFoto.setImageResource(R.drawable.sem_imagem);
+        dsGprMat.setText("");
+        cdGprMat.setText("");
+
     }
 
 }

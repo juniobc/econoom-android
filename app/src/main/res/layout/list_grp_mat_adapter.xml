@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:id="@+id/row">
+
+    <FrameLayout
+        android:id="@+id/img_foto"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/iconshape">
+        <ImageView
+            android:src="@drawable/sem_imagem"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="center" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/ds_gpr_mat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/img_foto"
+        android:layout_toRightOf="@+id/img_foto"
+        android:textSize="@dimen/title"
+        android:textStyle="bold"
+        android:text="Não Atendida"/>
+
+    <TextView
+        android:id="@+id/cd_gpr_mat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ds_gpr_mat"
+        android:layout_marginTop="1dip"
+        android:layout_toRightOf="@+id/img_foto"
+        android:textSize="@dimen/rating"
+        android:text="Aqui vai a descrição do foco aedes"/>
+
+
+</RelativeLayout>

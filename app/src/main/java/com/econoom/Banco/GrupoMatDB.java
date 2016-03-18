@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.econoom.entidade.GrupoMat;
 
@@ -25,7 +26,9 @@ public class GrupoMatDB {
     private static final String TAG = "GrupoMatDB";
 
     protected static final String CREATE_GRP_MAT_TABLE = "CREATE TABLE " + TABLE_GPR_MAT + "("
-            + CD_GPR_MAT + " INTEGER primary key," + DS_GPR_MAT + " TEXT, "+IMG_GPR_MAT+" BLOB )";;
+            + CD_GPR_MAT + " INTEGER PRIMARY KEY," + DS_GPR_MAT + " TEXT NOT NULL UNIQUE, "+IMG_GPR_MAT+" BLOB )";
+
+    protected static final String DROP_GRP_MAT_TABLE = "DROP TABLE "+TABLE_GPR_MAT;
 
     public GrupoMatDB(Context contexto){
 
@@ -48,16 +51,16 @@ public class GrupoMatDB {
         SQLiteDatabase db = bh.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(CD_GPR_MAT, gprMat.getCdGprMat());
+        //values.put(CD_GPR_MAT, gprMat.getCdGprMat());
         values.put(DS_GPR_MAT, gprMat.getDsGrupo());
         values.put(IMG_GPR_MAT, gprMat.getImgGprMat());
 
-        db.insert(TABLE_GPR_MAT, null, values);
+        db.insertOrThrow(TABLE_GPR_MAT, null, values);
         db.close();
     }
 
     public void alteraRegistro(GrupoMat gprMat){
-
+        Log.d(TAG,"alteraRegistro - passou descricao: "+gprMat.getDsGrupo());
         SQLiteDatabase db = bh.getWritableDatabase();
 
         ContentValues valores;
@@ -104,7 +107,7 @@ public class GrupoMatDB {
 
     }
 
-    public List<GrupoMat> getTodasUnMedida() {
+    public List<GrupoMat> getTodosGprMat() {
 
         SQLiteDatabase db = bh.getReadableDatabase();
 
@@ -124,12 +127,10 @@ public class GrupoMatDB {
 
                 listGpr.add(gprMat);
 
-                cursor.moveToNext();
             }while (cursor.moveToNext());
 
         }else{listGpr = null;}
 
-        db.close();
 
         return listGpr;
     }

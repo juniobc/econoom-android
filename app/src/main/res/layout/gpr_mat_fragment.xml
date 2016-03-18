@@ -2,7 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/cd_gpr_mat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -25,5 +32,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/selec_img"/>
+
+    <Button
+        android:id="@+id/btn_cad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/btn_cad"/>
+
+    <Button
+        android:id="@+id/btn_alt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:hint="@string/btn_altera"/>
 
 </LinearLayout>
