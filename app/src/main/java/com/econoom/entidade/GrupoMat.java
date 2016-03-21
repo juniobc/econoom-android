@@ -58,6 +58,8 @@ public class GrupoMat implements Parcelable {
 
             db.addGprMat(gpr);
 
+            Toast.makeText(contexto, "Grupo cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+
         }catch (SQLiteConstraintException e){
             Log.e(TAG, e.getMessage());
             Toast.makeText(contexto, "Grupo de Material já cadastrado!", Toast.LENGTH_LONG).show();
@@ -86,13 +88,25 @@ public class GrupoMat implements Parcelable {
 
     }
 
-    public void alteraGprMat(Context contexto){
+    public boolean alteraGprMat(Context contexto){
 
-        GrupoMatDB db = new GrupoMatDB(contexto);
+        try{
 
-        GrupoMat gpr = new GrupoMat(this.cdGprMat, this.dsGrupo, this.imgGprMat);
+            GrupoMatDB db = new GrupoMatDB(contexto);
 
-        db.alteraRegistro(gpr);
+            GrupoMat gpr = new GrupoMat(this.cdGprMat, this.dsGrupo, this.imgGprMat);
+
+            db.alteraRegistro(gpr);
+
+            Toast.makeText(contexto, "Grupo alterado com sucesso!", Toast.LENGTH_SHORT).show();
+
+            return true;
+
+        }catch (SQLiteConstraintException e){
+            Log.e(TAG, e.getMessage());
+            Toast.makeText(contexto, "Grupo de Material já cadastrado!", Toast.LENGTH_LONG).show();
+            return false;
+        }
 
     }
 

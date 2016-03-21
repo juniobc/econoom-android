@@ -17,7 +17,7 @@ import com.econoom.entidade.*;
 public class NotaValorDB extends SQLiteOpenHelper
 {
 	
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 7;
 
     private static final String DATABASE_NAME = "econoom";
 

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +51,10 @@ public class GprMatFragment extends android.support.v4.app.Fragment {
                 parent.removeView(view);*/
             view = inflater.inflate(R.layout.gpr_mat_fragment, container, false);
 
+        }
+
+        if (((AppCompatActivity)getActivity()).getSupportActionBar() != null) {
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Gerencia Grupo Material");
         }
 
         btnCad = (Button) view.findViewById(R.id.btn_cad);
@@ -110,9 +115,6 @@ public class GprMatFragment extends android.support.v4.app.Fragment {
 
                     GrupoMat gpr = new GrupoMat(dsGprMat.getText().toString(), byteArray);
                     gpr.cadastro(getContext());
-
-                    Toast.makeText(getContext(), "Grupo cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
-
                     limpaCampos();
                 }
             }
@@ -138,15 +140,14 @@ public class GprMatFragment extends android.support.v4.app.Fragment {
                 }else{
 
                     GrupoMat gpr = new GrupoMat(Integer.parseInt(cdGprMat.getText().toString()),dsGprMat.getText().toString(), byteArray);
-                    gpr.alteraGprMat(getContext());
 
-                    Toast.makeText(getContext(), "Grupo alterado com sucesso!", Toast.LENGTH_SHORT).show();
-
-                    Fragment fragment = new ListGprMatFragment();
-                    FragmentTransaction ft  = getFragmentManager().beginTransaction();
-                    ft.replace(R.id.cadastra_gpr, fragment);
-                    ft.addToBackStack(null);
-                    ft.commit();
+                    if(gpr.alteraGprMat(getContext())){
+                        Fragment fragment = new ListGprMatFragment();
+                        FragmentTransaction ft  = getFragmentManager().beginTransaction();
+                        ft.replace(R.id.cadastra_gpr, fragment);
+                        ft.addToBackStack(null);
+                        ft.commit();
+                    }
 
                 }
             }

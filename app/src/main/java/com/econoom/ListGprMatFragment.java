@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +39,10 @@ public class ListGprMatFragment extends Fragment {
 
         }
 
+        if (((AppCompatActivity)getActivity()).getSupportActionBar() != null) {
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Lista Grupo Material");
+        }
+
         new ListaGprMatService(getContext()).execute();
 
         listGprMat = (ListView) view.findViewById(R.id.list_gpr_mat);
@@ -55,11 +61,6 @@ public class ListGprMatFragment extends Fragment {
 
                                 mListener.onGprMatSelected(gprMat);
 
-                                /*Intent i = new Intent(getActivity(), GprMatFragment.class);
-
-                                i.putExtra(GprMatFragment.OBJETO_GPRMAT, gprMat);
-                                startActivityForResult(i, 0);*/
-
                             }
                         }).setNegativeButton(R.string.btn_deleta, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -68,9 +69,10 @@ public class ListGprMatFragment extends Fragment {
 
                         Toast.makeText(getContext(), "Deletado com sucesso!", Toast.LENGTH_SHORT).show();
 
+                        new ListaGprMatService(getContext()).execute();
+
                     }
-                })
-                        .show();
+                }).show();
 
             }
         });

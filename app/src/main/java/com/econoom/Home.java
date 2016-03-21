@@ -120,12 +120,13 @@ public class Home extends AppCompatActivity
                 if (fragment != null) {
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     ft.replace(R.id.cadastra_gpr, fragment);
+                    ft.addToBackStack(null);
                     ft.commit();
                 }
 
-                if (getSupportActionBar() != null) {
+                /*if (getSupportActionBar() != null) {
                     getSupportActionBar().setTitle(title);
-                }
+                }*/
 
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
@@ -210,22 +211,17 @@ public class Home extends AppCompatActivity
     @Override
     public void onGprMatSelected(GrupoMat gprMat){
 
-        String title = "Altera Grupo";
-
         Bundle bundle=new Bundle();
         bundle.putParcelable(GprMatFragment.OBJETO_GPRMAT, gprMat);
-        //set Fragmentclass Arguments
+
         fragment = new GprMatFragment();
         fragment.setArguments(bundle);
 
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.cadastra_gpr, fragment);
+            ft.addToBackStack(null);
             ft.commit();
-        }
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(title);
         }
 
     }
