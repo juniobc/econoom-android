@@ -73,7 +73,6 @@ public class ListGprMatFragment extends Fragment {
 
                     }
                 }).show();
-
             }
         });
 

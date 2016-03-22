@@ -6,31 +6,29 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.econoom.entidade.GrupoMat;
-
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * sebastiao junio 13/03/2016.
- */
-public class GrupoMatDB {
+public class ClasseMatDB {
 
     private BancoHelper bh;
-    private static final String TABLE_GPR_MAT = "t0002";
+    private static final String TABLE_CLASSE_MAT = "t0003";
 
-    protected static final String CD_GPR_MAT = "cd_gpr_mat";
-    private static final String DS_GPR_MAT = "ds_gpr_mat";
-    private static final String IMG_GPR_MAT = "img_gpr_mat";
+    protected static final String CD_CLASSE_MAT = "cd_classe_mat";
+    private static final String CD_GPR_MAT = "cd_gpr_mat";
+    private static final String DS_CLASSE_MAT = "ds_classe_mat";
+    private static final String IMG_CLASSE_MAT = "img_classe_mat";
 
-    private static final String TAG = "GrupoMatDB";
+    private static final String TAG = "ClasseMatDB";
 
-    protected static final String CREATE_GRP_MAT_TABLE = "CREATE TABLE " + TABLE_GPR_MAT + "("
-            + CD_GPR_MAT + " INTEGER PRIMARY KEY," + DS_GPR_MAT + " TEXT NOT NULL UNIQUE, "+IMG_GPR_MAT+" BLOB )";
+    protected static final String CREATE_CLASSE_MAT_TABLE = "CREATE TABLE " + TABLE_CLASSE_MAT + "("
+            +CD_CLASSE_MAT + " INTEGER PRIMARY KEY, "+CD_GPR_MAT+" INTEGER,"
+            + DS_CLASSE_MAT + " TEXT NOT NULL UNIQUE, "+IMG_CLASSE_MAT+" BLOB, "
+            +"FOREIGN KEY(" + CD_GPR_MAT + ") REFERENCES t0002("+GrupoMatDB.CD_GPR_MAT+"))";
 
-    protected static final String DROP_GRP_MAT_TABLE = "DROP TABLE "+TABLE_GPR_MAT;
+    protected static final String DROP_CLASSE_MAT_TABLE = "DROP TABLE "+TABLE_CLASSE_MAT;
 
-    public GrupoMatDB(Context contexto){
+    public ClasseMatDB(Context contexto){
 
         bh = new BancoHelper(contexto);
 
@@ -60,7 +58,7 @@ public class GrupoMatDB {
     }
 
     public void alteraRegistro(GrupoMat gprMat){
-        Log.d(TAG,"alteraRegistro - passou descricao: "+gprMat.getDsGrupo());
+        Log.d(TAG, "alteraRegistro - passou descricao: " + gprMat.getDsGrupo());
         SQLiteDatabase db = bh.getWritableDatabase();
 
         ContentValues valores;

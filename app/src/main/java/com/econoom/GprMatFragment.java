@@ -144,7 +144,7 @@ public class GprMatFragment extends android.support.v4.app.Fragment {
                     if(gpr.alteraGprMat(getContext())){
                         Fragment fragment = new ListGprMatFragment();
                         FragmentTransaction ft  = getFragmentManager().beginTransaction();
-                        ft.replace(R.id.cadastra_gpr, fragment);
+                        ft.replace(R.id.menu_fragment, fragment);
                         ft.addToBackStack(null);
                         ft.commit();
                     }

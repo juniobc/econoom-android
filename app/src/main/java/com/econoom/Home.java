@@ -103,23 +103,19 @@ public class Home extends AppCompatActivity
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
-                String title = null;
-
                 fragment = null;
 
                 if (groupPosition == 1 && childPosition == 0) {
                     fragment = new GprMatFragment();
-                    title = "Cadastra Grupo";
                 }
 
                 if (groupPosition == 1 && childPosition == 1) {
                     fragment = new ListGprMatFragment();
-                    title = "Lista Grupo Material";
                 }
 
                 if (fragment != null) {
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.cadastra_gpr, fragment);
+                    ft.replace(R.id.menu_fragment, fragment);
                     ft.addToBackStack(null);
                     ft.commit();
                 }
@@ -134,6 +130,7 @@ public class Home extends AppCompatActivity
                 return false;
             }
         });
+
     }
 
     public void criaMenu(){
@@ -219,7 +216,7 @@ public class Home extends AppCompatActivity
 
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.cadastra_gpr, fragment);
+            ft.replace(R.id.menu_fragment, fragment);
             ft.addToBackStack(null);
             ft.commit();
         }
